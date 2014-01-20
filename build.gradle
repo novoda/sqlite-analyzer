@@ -1,25 +1,22 @@
-apply plugin: 'java'
-apply plugin: 'groovy'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
 
-repositories {
-    mavenCentral()
-    maven {
-        url "https://oss.sonatype.org/content/repositories/snapshots"
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.7.+'
     }
 }
 
-dependencies {
-    compile 'com.squareup:javawriter:2.3.1'
-    compile 'org.xerial:sqlite-jdbc:3.7.15-SNAPSHOT'
-
-    compile gradleApi()
-    compile localGroovy()
-
-    testCompile 'junit:junit:4.+'
+allprojects {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots"
+        }
+    }
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.9'
 }
-
-

@@ -1,18 +1,14 @@
 package com.novoda.sqlite;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Arrays;
-import java.util.List;
-
 import com.novoda.sqlite.impl.TableCreateStatementParser;
 import com.novoda.sqlite.model.Column;
 import com.novoda.sqlite.model.DataAffinity;
 import com.novoda.sqlite.model.Database;
 import com.novoda.sqlite.model.Table;
+
+import java.sql.*;
+import java.util.Arrays;
+import java.util.List;
 
 public final class Analyzer {
     private Statement statement;

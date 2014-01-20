@@ -24,4 +24,8 @@ public final class Column {
     public boolean isNullable() {
         return nullable;
     }
+
+    public DataAffinity getAffinity() {
+        return affinity;
+    }
 }

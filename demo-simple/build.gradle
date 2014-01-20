@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.7.+'
+    }
+}
+
+apply plugin: 'android'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.0.1"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 19
+    }
+    buildTypes {
+        debug {
+        }
+        release {
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+/**
+ * We register the DatabaseInfo generation task with all the variants as a java-generational task.
+ * (Requires android gradle plugin >= 0.7.0)
+ *
+ * This makes the code available in the IDE.
+ */
+android.applicationVariants.all { variant ->
+    File sourceFolder = file("${buildDir}/source/sqlite/${variant.dirName}")
+    def javaGenerationTask = tasks.create(name: "generateSqlFor${variant.name.capitalize()}", type: tv.arte.plus7.sql.GenerateDatabaseInfo) {
+        migrationsDir file("${projectDir.absolutePath}/src/main/assets/migrations")
+        outputDir sourceFolder
+        packageName "com.novoda.sqliteprovider.demo.simple"
+    }
+    variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
+}
+
