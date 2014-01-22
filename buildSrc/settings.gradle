@@ -1,2 +1,3 @@
 include ':analyzer'
+project(':analyzer').projectDir = new File(new File('.'), '../analyzer')
 

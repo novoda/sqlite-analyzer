@@ -11,23 +11,8 @@ This model is then used to generate code.
 We use [sqlite-jdbc](https://bitbucket.org/xerial/sqlite-jdbc) to create and analyze the database.
 
 ### Integration
-To integrate sqliteAnalyzer into your project, let your master build depend on the sqliteAnalyzer project, either by
-referencing it in the buildDependencies section or by checking it out under the `buildSrc` sub-directory and using the
-following `build.gradle` in `buildSrc`:
-
-```groovy
-repositories {
-    mavenCentral()
-    maven {
-        url "https://oss.sonatype.org/content/repositories/snapshots"
-    }
-}
-
-rootProject.dependencies {
-    compile project(':analyzer')
-}
-```
-Note that you will also have to link to the sources via `ln -s ../analyzer analyzer`.
+To integrate sqliteAnalyzer into your project, let your buildscript depend on the binary,
+or see the setup under the `buildSrc` sub-directory for an example that directly links to the sources.
 
 The code generation is then integrated with the gradle build via:
 
