@@ -25,9 +25,10 @@ repositories {
 }
 
 rootProject.dependencies {
-    compile project(':spikes:sqliteAnalyzer')
+    compile project(':analyzer')
 }
 ```
+Note that you will also have to link to the sources via `ln -s ../analyzer analyzer`.
 
 The code generation is then integrated with the gradle build via:
 

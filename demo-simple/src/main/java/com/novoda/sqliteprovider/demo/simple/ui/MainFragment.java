@@ -40,8 +40,8 @@ public class MainFragment extends Fragment {
     private void saveNewShopToDatabase() {
         Uri table = FireworkProvider.SHOPS;
         ContentValues values = new ContentValues(1);
-        values.put(DB.Columns.Shop.Name, "MyNewShop" + System.currentTimeMillis());
-        values.put(DB.Columns.Shop.Postcode, "LN11YA");
+        DB.Shop.setName("MyNewShop" + System.currentTimeMillis(), values);
+        DB.Shop.setPostcode("LN11YA", values);
         getActivity().getContentResolver().insert(table, values);
     }
 

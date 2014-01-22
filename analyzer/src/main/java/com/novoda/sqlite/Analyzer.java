@@ -2,7 +2,6 @@ package com.novoda.sqlite;
 
 import com.novoda.sqlite.impl.TableCreateStatementParser;
 import com.novoda.sqlite.model.Column;
-import com.novoda.sqlite.model.DataAffinity;
 import com.novoda.sqlite.model.Database;
 import com.novoda.sqlite.model.Table;
 
@@ -72,33 +71,9 @@ public final class Analyzer {
         String name = resultSet.getString("name");
         String type = resultSet.getString("type");
         boolean nullable = !resultSet.getBoolean("notNull");
-        return new Column(name, type, nullable, computeAffinity(type));
+        return new Column(name, type, nullable);
     }
 
-    /*
-     * See http://www.sqlite.org/datatype3.html
-     * section 2.1 Determination of column affinity
-     */
-    private DataAffinity computeAffinity(String type) {
-        String deftype = type.toLowerCase();
-        if (deftype.contains("int"))
-            return DataAffinity.INTEGER;
-        if (containsOneOf(deftype, "char", "clob", "text"))
-            return DataAffinity.TEXT;
-        if (containsOneOf(deftype, "", "blob"))
-            return DataAffinity.NONE;
-        if (containsOneOf(deftype, "real", "floa", "doub"))
-            return DataAffinity.REAL;
-        return DataAffinity.NUMERIC;
-    }
-
-    private boolean containsOneOf(String toCheck, String... values) {
-        for (String value : values) {
-            if (toCheck.contains(value))
-                return true;
-        }
-        return false;
-    }
 
     /**
      * We can also read the column info using a Limit-0 select query on a table.
