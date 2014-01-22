@@ -38,7 +38,7 @@ android.applicationVariants.all { variant ->
 License
 -------
 
-    Copyright 2014 Novoda, Ltd.
+    (c) Copyright 2014 Novoda
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
