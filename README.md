@@ -29,7 +29,7 @@ android.applicationVariants.all { variant ->
     def javaGenerationTask = tasks.create(name: "generateSqlFor${variant.name.capitalize()}", type: tv.arte.plus7.sql.GenerateDatabaseInfo) {
         migrationsDir file("${projectDir.absolutePath}/src/main/assets/migrations")
         outputDir sourceFolder
-        packageName "tv.arte.plus7.sql"
+        packageName 'com.novoda.sqliteprovider.demo.simple'
     }
     variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
 }
