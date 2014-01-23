@@ -1,3 +1,4 @@
+
 buildscript {
     repositories {
         mavenCentral()
@@ -29,19 +30,28 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
-/**
- * We register the DatabaseInfo generation task with all the variants as a java-generational task.
- * (Requires android gradle plugin >= 0.7.0)
- *
- * This makes the code available in the IDE.
- */
-android.applicationVariants.all { variant ->
-    File sourceFolder = file("${buildDir}/source/sqlite/${variant.dirName}")
-    def javaGenerationTask = tasks.create(name: "generateSqlFor${variant.name.capitalize()}", type: tv.arte.plus7.sql.GenerateDatabaseInfo) {
-        migrationsDir file("${projectDir.absolutePath}/src/main/assets/migrations")
-        outputDir sourceFolder
-        packageName "com.novoda.sqliteprovider.demo.simple"
-    }
-    variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
-}
 
+
+apply plugin: SqliteAnalyzer
+
+class SqliteAnalyzer implements Plugin<Project> {
+    void apply(Project project) {
+        /**
+         * We register the DatabaseInfo generation task with all the variants as a java-generational task.
+         * (Requires android gradle plugin >= 0.7.0)
+         *
+         * This makes the code available in the IDE.
+         */
+        project.android.applicationVariants.all { variant ->
+            println "moooooooooo" + variant.name
+
+            File sourceFolder = project.file("${project.buildDir}/source/sqlite/${variant.dirName}")
+            def javaGenerationTask = project.tasks.create(name: "generateSqlFor${variant.name.capitalize()}", type: tv.arte.plus7.sql.GenerateDatabaseInfo) {
+                migrationsDir project.file("${project.projectDir.absolutePath}/src/main/assets/migrations")
+                outputDir sourceFolder
+                packageName "com.novoda.sqliteprovider.demo.simple"
+            }
+            variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
+        }
+    }
+}
