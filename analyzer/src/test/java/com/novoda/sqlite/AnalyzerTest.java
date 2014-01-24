@@ -18,8 +18,8 @@ public class AnalyzerTest {
     public void setUp() throws Exception {
         String migrationsDir = MigrationsInDir.class.getResource("/migrations").getFile();
         MigrationsInDir migrations = new MigrationsInDir(new File(migrationsDir));
-        Migrator migrator = new Migrator(migrations);
-        analyzer = new Analyzer(migrator.runMigrations());
+        Connector connector = new MigrationsConnector(migrations);
+        analyzer = new Analyzer(connector.connect());
     }
 
     @Test

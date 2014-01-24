@@ -2,13 +2,14 @@ package com.novoda.sqlite;
 
 import com.novoda.sqlite.model.Database;
 import com.novoda.sqlite.model.Table;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 public class AnalyzerTestOnArte {
 
@@ -19,8 +20,8 @@ public class AnalyzerTestOnArte {
     public void setUp() throws Exception {
         String migrationsDir = MigrationsInDir.class.getResource("/arte_migrations").getFile();
         MigrationsInDir migrations = new MigrationsInDir(new File(migrationsDir));
-        Migrator migrator = new Migrator(migrations);
-        analyzer = new Analyzer(migrator.runMigrations());
+        Connector connector = new MigrationsConnector(migrations);
+        analyzer = new Analyzer(connector.connect());
         database = analyzer.analyze();
     }
 

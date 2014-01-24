@@ -9,4 +9,4 @@ INSERT INTO 'shop'
 INSERT INTO 'shop'
     (name, postcode) VALUES ("Asda", "L319BH");
 create table zweiter
-    (_id INTEGER PRIMARY KEY, name TEXT, cost float, amount INTEGER, rich BOOLEAN, nice BOOLEAN NOT NULL);
+    (_id INTEGER PRIMARY KEY, name TEXT, cost float, amount INTEGER, rich BOOLEAN, nice BOOLEAN NOT NULL) ;

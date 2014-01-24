@@ -20,7 +20,7 @@ public static final class $classname {
 
     String print() {
         new GStringTemplateEngine().createTemplate(TEMPLATE)
-                .make([columns: table.getColumns(), classname: table.name.capitalize()])
+                .make([columns: table.getColumns(), classname: table.camelizedName])
                 .toString()
     }
 

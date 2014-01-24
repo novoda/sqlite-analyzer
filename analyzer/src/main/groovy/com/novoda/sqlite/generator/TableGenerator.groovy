@@ -23,7 +23,7 @@ public static class $className {
             generators << new SetterGenerator(column)
         }
         new GStringTemplateEngine().createTemplate(TEMPLATE)
-                .make([generators: generators, className: table.name.capitalize()])
+                .make([generators: generators, className: table.camelizedName])
                 .toString()
     }
 

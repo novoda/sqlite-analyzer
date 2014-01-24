@@ -35,6 +35,11 @@ public final class Analyzer {
             List<String> dependsOnTables = parser.parseUsedTables(table.getSql());
             for (String dependsOnTable : dependsOnTables) {
                 Table baseTable = database.findTableByName(dependsOnTable);
+                // error in parser! Investigate! Does not parse stuff like 'JOIN "two words table"' correctly
+                if (baseTable == null) {
+                    System.out.println("table not found: " + dependsOnTable+", parsed statement: "+table.getSql());
+                    continue;
+                }
                 baseTable.addDependent(table);
             }
         }
@@ -61,7 +66,7 @@ public final class Analyzer {
      * @throws SQLException
      */
     private void readTableInfo(Table table) throws SQLException {
-        ResultSet tableInfo = statement.executeQuery("PRAGMA table_info(" + table.getName() + ");");
+        ResultSet tableInfo = statement.executeQuery("PRAGMA table_info('" + table.getName() + "');");
         while (tableInfo.next()) {
             table.addColumn(createColumn(tableInfo));
         }
@@ -73,7 +78,6 @@ public final class Analyzer {
         boolean nullable = !resultSet.getBoolean("notNull");
         return new Column(name, type, nullable);
     }
-
 
     /**
      * We can also read the column info using a Limit-0 select query on a table.

@@ -35,7 +35,7 @@ public final class Table {
     }
 
     public String getCamelizedName() {
-        return StringUtil.camelize(name);
+        return StringUtil.camelify(name);
     }
 
     public String getSql() {

@@ -20,7 +20,7 @@ public final class Column {
     }
 
     public String getCamelizedName() {
-        return StringUtil.camelize(name);
+        return StringUtil.camelify(name);
     }
 
     public String getType() {

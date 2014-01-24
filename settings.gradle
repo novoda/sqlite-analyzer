@@ -1,2 +1,2 @@
-include ':demo-simple'
+include 'demo-assethelper', 'demo-sqliteprovider'
 
