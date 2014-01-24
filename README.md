@@ -17,21 +17,11 @@ or see the setup under the `buildSrc` sub-directory for an example that directly
 The code generation is then integrated with the gradle build via:
 
 ```groovy
-/**
- * We register the DatabaseInfo generation task with all the variants as a java-generational task.
- * (Requires android gradle plugin >= 0.7.0)
- *
- * This makes the code available in the IDE.
- */
-android.applicationVariants.all { variant ->
-    // create a task that generates a java class
-    File sourceFolder = file("${buildDir}/source/sqlite/${variant.dirName}")
-    def javaGenerationTask = tasks.create(name: "generateSqlFor${variant.name.capitalize()}", type: tv.arte.plus7.sql.GenerateDatabaseInfo) {
-        migrationsDir file("${projectDir.absolutePath}/src/main/assets/migrations")
-        outputDir sourceFolder
-        packageName 'com.novoda.sqliteprovider.demo.simple'
-    }
-    variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
+apply plugin: 'sqlite-access'
+
+sqliteAccess {
+    migrationsDir 'src/main/assets/migrations'
+    packageName "com.novoda.sqliteprovider.demo.simple"
 }
 ```
 

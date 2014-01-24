@@ -1,9 +1,8 @@
-package tv.arte.plus7.sql
-import com.novoda.sqlite.*
-import com.novoda.sqlite.generator.ColumnsGenerator
-import com.novoda.sqlite.generator.DBPrinter
-import com.novoda.sqlite.generator.TableGenerator
-import com.novoda.sqlite.generator.TablesGenerator
+package com.novoda.sqlite.generator
+
+import com.novoda.sqlite.Analyzer
+import com.novoda.sqlite.MigrationsInDir
+import com.novoda.sqlite.Migrator
 import com.novoda.sqlite.model.Database
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.InputDirectory
@@ -15,7 +14,7 @@ import org.gradle.api.tasks.TaskAction
  * We use input and output directory annotations to ensure the task is run on any changes in the migrations directory
  * or when the output is removed.
  */
-class GenerateDatabaseInfo extends DefaultTask {
+class GenerateDatabaseCode extends DefaultTask {
 
     @InputDirectory
     File migrationsDir
@@ -48,11 +47,6 @@ class GenerateDatabaseInfo extends DefaultTask {
             dBPrinter.printers << new TableGenerator(table)
         }
         dBPrinter.print()
-/*
-        Printer[] printers = [new ColumnsPrinter(database), new TablesPrinter(database)]
-        def codeGenerator = new Generator(makeFileDir(), packageName, printers)
-        codeGenerator.print()
-*/
     }
 
     private File makeFileDir() {
