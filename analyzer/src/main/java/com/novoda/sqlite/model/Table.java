@@ -11,11 +11,17 @@ public final class Table {
     private final String name;
     private final List<Column> columns = new ArrayList<Column>();
     private final String sql;
+    private final boolean isView;
     private final List<Table> dependents = new ArrayList<Table>();
 
-    public Table(String name, String sql) {
+    public Table(String name, String sql, boolean isView) {
         this.name = name;
         this.sql = sql;
+        this.isView = isView;
+    }
+
+    public boolean isView() {
+        return isView;
     }
 
     public void addColumn(Column column) {
@@ -52,5 +58,12 @@ public final class Table {
 
     public Collection<Table> getDependents() {
         return Collections.unmodifiableCollection(dependents);
+    }
+
+    @Override
+    public String toString() {
+        return "Table{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }

@@ -1,12 +1,3 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
-    }
-}
-
 apply plugin: 'android'
 apply plugin: 'sqlite-access'
 
@@ -17,12 +8,6 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 19
-    }
-    buildTypes {
-        debug {
-        }
-        release {
-        }
     }
 }
 

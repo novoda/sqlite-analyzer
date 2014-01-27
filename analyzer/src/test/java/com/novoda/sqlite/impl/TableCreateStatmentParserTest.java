@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TableCreateStatmentParserTest {
 
-    private static final String SIMPLE_JOIN = "CREATE VIEW view AS SELECT _ID FROM PROGRAMS INNER JOIN VIDEOS ON PROGRAMS.DEFAULT_VIDEO_ID = VIDEOS.REF_ID";
+    private static final String SIMPLE_JOIN = "CREATE VIEW test AS SELECT _ID FROM PROGRAMS INNER JOIN VIDEOS ON PROGRAMS.DEFAULT_VIDEO_ID = VIDEOS.REF_ID";
     private static final String DOUBLE_JOIN = SIMPLE_JOIN + " inner join tests";
 
     @Test

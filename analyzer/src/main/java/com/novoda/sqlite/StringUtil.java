@@ -3,6 +3,7 @@ package com.novoda.sqlite;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// Taken from novoda/typewriter
 public class StringUtil {
 
     public static final String SET = "set";

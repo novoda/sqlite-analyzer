@@ -4,7 +4,7 @@ import com.novoda.sqlite.model.Column
 import com.novoda.sqlite.model.DataAffinity
 import groovy.text.GStringTemplateEngine
 
-public class GetterGenerator {
+class GetterGenerator {
 
     private static final String TEMPLATE = '''\
 public static $returnType $prefix$methodName(android.database.Cursor cursor) {
@@ -19,36 +19,30 @@ public static $returnType $prefix$methodName(android.database.Cursor cursor) {
 '''
     private final Column column
 
-    public GetterGenerator(Column column) {
+    GetterGenerator(Column column) {
         this.column = column
     }
 
     String print() {
         new GStringTemplateEngine().createTemplate(TEMPLATE)
                 .make([returnType: getReturnType(),
-                       methodName: camelizedName(),
+                       methodName: column.camelizedName,
                        rowName: column.name,
                        cursorFunction: getCursorFunction(),
                        nullable: column.nullable,
-                       isBool: column.isBoolean(),
+                       isBool: column.boolean,
                        prefix: prefix()])
                 .toString()
     }
 
     private String prefix() {
-        column.isBoolean() ? "is" : "get"
-    }
-
-    private String camelizedName() {
-        String name = column.name
-        name = name.startsWith('_') ? name.substring(1) : name
-        "$name".capitalize()
+        column.boolean ? "is" : "get"
     }
 
     private String getReturnType() {
         switch (column.getAffinity()) {
             case DataAffinity.INTEGER:
-                if (column.isNullable()) {
+                if (column.nullable) {
                     return "Integer";
                 }
                 return "int";
@@ -57,22 +51,21 @@ public static $returnType $prefix$methodName(android.database.Cursor cursor) {
             case DataAffinity.TEXT:
                 return "String";
             case DataAffinity.NUMERIC:
-                if (column.isBoolean())
-                    return column.isNullable() ? "Boolean" : "boolean"
+                if (column.boolean)
+                    return column.nullable ? "Boolean" : "boolean"
                 return "String"
             case DataAffinity.REAL:
-                if (column.isNullable()) {
+                if (column.nullable) {
                     return "Double";
                 }
                 return "double";
             default:
-                throw new RuntimeException("unknown affinity: " + column.getAffinity().name());
+                throw new RuntimeException("unknown affinity: " + column.affinity.name());
         }
     }
 
     private String getCursorFunction() {
-        def affinity = column.getAffinity()
-        switch (affinity) {
+        switch (column.affinity) {
             case DataAffinity.INTEGER:
                 return "Int";
             case DataAffinity.NONE:
@@ -80,13 +73,13 @@ public static $returnType $prefix$methodName(android.database.Cursor cursor) {
             case DataAffinity.TEXT:
                 return "String";
             case DataAffinity.NUMERIC:
-                if (column.isBoolean())
+                if (column.boolean)
                     return "Int"
                 return "String"
             case DataAffinity.REAL:
                 return "Double";
             default:
-                throw new RuntimeException("unknown affinity: " + affinity.name());
+                throw new RuntimeException("unknown affinity: " + column.affinity.name());
         }
     }
 

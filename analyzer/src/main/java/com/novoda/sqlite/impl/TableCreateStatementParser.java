@@ -11,8 +11,9 @@ public class TableCreateStatementParser {
     public List<String> parseUsedTables(String sqlCreateStatement) {
         ArrayList<String> baseTables = new ArrayList<String>();
         Matcher m = p.matcher(sqlCreateStatement.toUpperCase());
-        while (m.find())
+        while (m.find()) {
             baseTables.add(m.group(2));
+        }
         return baseTables;
     }
 }

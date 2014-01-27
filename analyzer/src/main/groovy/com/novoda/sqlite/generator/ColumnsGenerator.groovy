@@ -21,7 +21,7 @@ public static final class Columns {
                 .toString()
     }
 
-    private def createTableColumnsGenerators() {
+    private createTableColumnsGenerators() {
         def generators = []
         database.tables.each { table ->
             generators << new TableColumnsGenerator(table)

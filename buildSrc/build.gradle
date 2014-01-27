@@ -7,6 +7,6 @@ repositories {
 }
 
 rootProject.dependencies {
-    compile project(':analyzer')
+    runtime project(':analyzer')
 }
 

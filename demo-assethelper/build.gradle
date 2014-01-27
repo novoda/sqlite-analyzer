@@ -1,18 +1,5 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
-    }
-}
-
 apply plugin: 'android'
 apply plugin: 'sqlite-access'
-
-dependencies {
-    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.+'
-}
 
 android {
     buildToolsVersion '19.0.0'
@@ -20,11 +7,12 @@ android {
 
     defaultConfig {
         minSdkVersion 8
-        packageName 'com.example.sqliteassethelper'
         targetSdkVersion 19
-        versionCode 1
-        versionName '1.0'
     }
+}
+
+dependencies {
+    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.+'
 }
 
 sqliteAccess {

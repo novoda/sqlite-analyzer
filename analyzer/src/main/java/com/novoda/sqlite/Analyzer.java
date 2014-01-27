@@ -32,13 +32,18 @@ public final class Analyzer {
     private void addTableDependencies(Database database) {
         TableCreateStatementParser parser = new TableCreateStatementParser();
         for (Table table : database.getTables()) {
+            if (!table.isView()) {
+                continue;
+            }
             List<String> dependsOnTables = parser.parseUsedTables(table.getSql());
             for (String dependsOnTable : dependsOnTables) {
                 Table baseTable = database.findTableByName(dependsOnTable);
                 // error in parser! Investigate! Does not parse stuff like 'JOIN "two words table"' correctly
                 if (baseTable == null) {
-                    System.out.println("table not found: " + dependsOnTable+", parsed statement: "+table.getSql());
                     continue;
+//                    throw new RuntimeException("no table with name " + dependsOnTable + " : " + database.getTables());
+//                    System.out.println("table not found: " + dependsOnTable);
+//                    continue;
                 }
                 baseTable.addDependent(table);
             }
@@ -55,7 +60,7 @@ public final class Analyzer {
         ResultSet rs = statement
                 .executeQuery("select * from sqlite_master where type IN ('table', 'view') AND NOT name like 'sqlite/_%' ESCAPE '/';");
         while (rs.next()) {
-            database.addTable(new Table(rs.getString("name"), rs.getString("sql")));
+            database.addTable(new Table(rs.getString("name"), rs.getString("sql"), "view".equals(rs.getString("type"))));
         }
     }
 

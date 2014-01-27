@@ -4,7 +4,7 @@ import com.novoda.sqlite.model.Column
 import com.novoda.sqlite.model.DataAffinity
 import groovy.text.GStringTemplateEngine
 
-public class SetterGenerator {
+class SetterGenerator {
 
     private static final String TEMPLATE = '''\
 public static void set$methodName($inputType value, android.content.ContentValues values) {
@@ -13,7 +13,7 @@ public static void set$methodName($inputType value, android.content.ContentValue
 '''
     private final Column column
 
-    public SetterGenerator(Column column) {
+    SetterGenerator(Column column) {
         this.column = column
     }
 
@@ -26,9 +26,9 @@ public static void set$methodName($inputType value, android.content.ContentValue
     }
 
     private String getDataType() {
-        switch (column.getAffinity()) {
+        switch (column.affinity) {
             case DataAffinity.INTEGER:
-                if (column.isNullable()) {
+                if (column.nullable) {
                     return "Integer";
                 }
                 return "int";
@@ -37,16 +37,16 @@ public static void set$methodName($inputType value, android.content.ContentValue
             case DataAffinity.TEXT:
                 return "String";
             case DataAffinity.NUMERIC:
-                if (column.isBoolean())
-                    return column.isNullable() ? "Boolean" : "boolean"
+                if (column.boolean)
+                    return column.nullable ? "Boolean" : "boolean"
                 return "String"
             case DataAffinity.REAL:
-                if (column.isNullable()) {
+                if (column.nullable) {
                     return "Double";
                 }
                 return "double";
             default:
-                throw new RuntimeException("unknown affinity: " + column.getAffinity().name());
+                throw new RuntimeException("unknown affinity: " + column.affinity.name());
         }
     }
 

@@ -19,7 +19,7 @@ public static final class Tables {
 
     String print() {
         new GStringTemplateEngine().createTemplate(TEMPLATE)
-                .make([tables: database.getTables()])
+                .make([tables: database.tables])
                 .toString()
     }
 
