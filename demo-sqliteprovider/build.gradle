@@ -2,8 +2,8 @@ apply plugin: 'android'
 apply plugin: 'sqlite-access'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.0.1"
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
         minSdkVersion 14
@@ -17,5 +17,5 @@ dependencies {
 
 sqliteAccess {
     migrationsDir 'src/main/assets/migrations'
-    packageName "com.novoda.sqliteprovider.demo.simple"
+    packageName 'com.novoda.sqliteprovider.demo.simple'
 }

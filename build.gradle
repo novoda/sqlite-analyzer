@@ -2,9 +2,8 @@ buildscript {
     repositories {
         mavenCentral()
     }
-
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.android.tools.build:gradle:0.8.+'
     }
 }
 
@@ -17,6 +16,11 @@ allprojects {
     }
 }
 
+ext {
+    buildToolsVersion = '19.0.1'
+    compileSdkVersion = 19
+}
+
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.9'
+    gradleVersion = '1.10'
 }
