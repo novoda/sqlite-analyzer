@@ -23,6 +23,13 @@ public final class Column {
         return StringUtil.camelify(name);
     }
 
+    public String getCamelizedSmallName() {
+        String camel = StringUtil.camelify(name);
+        if (camel.length() <= 1)
+            return camel;
+        return camel.substring(0,1).toLowerCase()+camel.substring(1);
+    }
+
     public String getType() {
         return type;
     }

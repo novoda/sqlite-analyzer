@@ -2,30 +2,45 @@ package com.novoda.sqlite.generator
 
 import com.novoda.sqlite.model.Column
 import com.novoda.sqlite.model.DataAffinity
+import com.novoda.sqlite.model.Table
 import groovy.text.GStringTemplateEngine
 
-class SetterGenerator {
+public class TableConstructorGenerator {
 
-    private static final String TEMPLATE = '''\
-public static void set$methodName($inputType value, android.content.ContentValues values) {
-    values.put("$rowName", value);
+    private static final String TEMPLATE =
+            '''\
+public $className(\
+<% columns.eachWithIndex {
+  column, index -> out << "$column.dataType $column.name"
+  if (index < columns.size-1)
+      out << ", "
+} %>) {
+<% columns.each { column -> %>\
+   this.$column.name = $column.name;
+<% } %>\
 }
 '''
-    private final Column column
 
-    SetterGenerator(Column column) {
-        this.column = column
-    }
+    private final Table table
+
+    TableConstructorGenerator(Table table) { this.table = table }
 
     String print() {
-        new GStringTemplateEngine().createTemplate(TEMPLATE)
-                .make([methodName: column.camelizedName,
-                       inputType: getDataType(),
-                       rowName: column.name])
+        new GStringTemplateEngine()
+                .createTemplate(TEMPLATE)
+                .make([className: table.camelizedName, columns: createColumns()])
                 .toString()
     }
 
-    private String getDataType() {
+    private createColumns() {
+        def columns = []
+        table.columns.each {
+            column -> columns << ['dataType': getDataType(column), 'name': column.camelizedSmallName]
+        }
+        return columns
+    }
+
+    private String getDataType(Column column) {
         switch (column.affinity) {
             case DataAffinity.INTEGER:
                 if (column.nullable) {

@@ -18,9 +18,11 @@ public static class $className {
 
     String print() {
         def generators = []
+        generators << new GetTableFromCursorGenerator(table) << new TableVariablesGenerator(table) <<  new TableConstructorGenerator(table)
         table.columns.each { column ->
-            generators << new GetterGenerator(column)
-            generators << new SetterGenerator(column)
+            generators << new GetFieldGenerator(column)
+            generators << new GetColumnFromCursorGenerator(column)
+            generators << new SetColumnToContentValueGenerator(column)
         }
         new GStringTemplateEngine().createTemplate(TEMPLATE)
                 .make([generators: generators, className: table.camelizedName])

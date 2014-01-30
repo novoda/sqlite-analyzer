@@ -61,11 +61,9 @@ public class MainFragment extends Fragment {
                         }
 
                         do {
-                            String shopName = DB.Shop.getName(cursor);
-                            String shopPostcode = DB.Shop.getPostcode(cursor);
-
-                            Log.d("demo", "Found shop: " + shopName);
-                            Log.d("demo", "Found postcode: " + shopPostcode);
+                            DB.Shop shop = DB.Shop.fromCursor(cursor);
+                            Log.d("demo", "Found shop: " + shop.getName());
+                            Log.d("demo", "Found postcode: " + shop.getPostcode());
                         } while (cursor.moveToNext());
 
                     }

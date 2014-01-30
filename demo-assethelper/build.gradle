@@ -1,4 +1,5 @@
 apply plugin: 'android'
+apply plugin: 'android-command'
 apply plugin: 'sqlite-access'
 
 android {
