@@ -8,7 +8,7 @@ public class TableColumnsGenerator {
     private static final String TEMPLATE = '''\
 public static final class $classname {
 <% columns.each { column ->  %>\
-    public static final String ${column.camelizedName} = "${column.name}";
+    public static final String ${column.camelizedName} = "${column.varName}";
 <% } %>\
 }
 '''
@@ -19,9 +19,11 @@ public static final class $classname {
     }
 
     String print() {
-        new GStringTemplateEngine().createTemplate(TEMPLATE)
-                .make([columns: table.columns, classname: table.camelizedName])
-                .toString()
+        use(ColumnJavaCategory) {
+            new GStringTemplateEngine().createTemplate(TEMPLATE)
+                    .make([columns: table.columns, classname: table.camelizedName])
+                    .toString()
+        }
     }
 
 }

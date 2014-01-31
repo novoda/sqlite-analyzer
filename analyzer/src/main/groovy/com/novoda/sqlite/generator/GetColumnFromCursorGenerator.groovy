@@ -1,7 +1,6 @@
 package com.novoda.sqlite.generator
 
 import com.novoda.sqlite.model.Column
-import com.novoda.sqlite.model.DataAffinity
 import groovy.text.GStringTemplateEngine
 
 class GetColumnFromCursorGenerator {
@@ -24,63 +23,16 @@ public static $returnType $prefix$methodName(android.database.Cursor cursor) {
     }
 
     String print() {
-        new GStringTemplateEngine().createTemplate(TEMPLATE)
-                .make([returnType: getReturnType(),
-                       methodName: column.camelizedName,
-                       rowName: column.name,
-                       cursorFunction: getCursorFunction(),
-                       nullable: column.nullable,
-                       isBool: column.boolean,
-                       prefix: prefix()])
-                .toString()
-    }
-
-    private String prefix() {
-        column.boolean ? "is" : "get"
-    }
-
-    private String getReturnType() {
-        switch (column.getAffinity()) {
-            case DataAffinity.INTEGER:
-                if (column.nullable) {
-                    return "Integer";
-                }
-                return "int";
-            case DataAffinity.NONE:
-                return "byte[]";
-            case DataAffinity.TEXT:
-                return "String";
-            case DataAffinity.NUMERIC:
-                if (column.boolean)
-                    return column.nullable ? "Boolean" : "boolean"
-                return "String"
-            case DataAffinity.REAL:
-                if (column.nullable) {
-                    return "Double";
-                }
-                return "double";
-            default:
-                throw new RuntimeException("unknown affinity: " + column.affinity.name());
+        use(ColumnJavaCategory, ColumnAndroidCategory) {
+            new GStringTemplateEngine().createTemplate(TEMPLATE)
+                    .make([returnType: column.dataType,
+                    methodName: column.camelizedName,
+                    rowName: column.name,
+                    cursorFunction: column.cursorAccessor,
+                    nullable: column.nullable,
+                    isBool: column.boolean,
+                    prefix: column.getterPrefix])
+                    .toString()
         }
     }
-
-    private String getCursorFunction() {
-        switch (column.affinity) {
-            case DataAffinity.INTEGER:
-                return "Int";
-            case DataAffinity.NONE:
-                return "Blob";
-            case DataAffinity.TEXT:
-                return "String";
-            case DataAffinity.NUMERIC:
-                if (column.boolean)
-                    return "Int"
-                return "String"
-            case DataAffinity.REAL:
-                return "Double";
-            default:
-                throw new RuntimeException("unknown affinity: " + column.affinity.name());
-        }
-    }
-
 }

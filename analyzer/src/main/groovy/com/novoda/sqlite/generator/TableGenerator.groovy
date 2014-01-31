@@ -18,7 +18,7 @@ public static class $className {
 
     String print() {
         def generators = []
-        generators << new GetTableFromCursorGenerator(table) << new TableVariablesGenerator(table) <<  new TableConstructorGenerator(table)
+        generators << new GetTableFromCursorGenerator(table) << new TableVariablesGenerator(table) << new TableConstructorGenerator(table)
         table.columns.each { column ->
             generators << new GetFieldGenerator(column)
             generators << new GetColumnFromCursorGenerator(column)
@@ -28,6 +28,4 @@ public static class $className {
                 .make([generators: generators, className: table.camelizedName])
                 .toString()
     }
-
 }
-

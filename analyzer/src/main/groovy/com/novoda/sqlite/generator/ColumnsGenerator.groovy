@@ -1,8 +1,9 @@
 package com.novoda.sqlite.generator
+
 import com.novoda.sqlite.model.Database
 import groovy.text.GStringTemplateEngine
 
-public class ColumnsGenerator {
+class ColumnsGenerator {
 
     private static final String TEMPLATE = '''\
 public static final class Columns {
@@ -11,7 +12,7 @@ public static final class Columns {
 '''
     private final Database database
 
-    public ColumnsGenerator(Database database) {
+    ColumnsGenerator(Database database) {
         this.database = database
     }
 

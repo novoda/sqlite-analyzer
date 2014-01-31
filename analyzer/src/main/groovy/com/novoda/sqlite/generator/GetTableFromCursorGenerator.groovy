@@ -1,6 +1,6 @@
 package com.novoda.sqlite.generator
+
 import com.novoda.sqlite.model.Column
-import com.novoda.sqlite.model.DataAffinity
 import com.novoda.sqlite.model.Table
 import groovy.text.GStringTemplateEngine
 
@@ -27,44 +27,17 @@ public static $returnType fromCursor(android.database.Cursor cursor) {
     String print() {
         new GStringTemplateEngine().createTemplate(TEMPLATE)
                 .make([returnType: table.camelizedName,
-                       columns: createColumns()])
+                columns: createColumns()])
                 .toString()
     }
 
     private createColumns() {
-        def columns = []
-        table.columns.each {
-            column -> columns << ['type': getReturnType(column), 'name': column.camelizedSmallName, 'access': prefix(column)+column.camelizedName]
-        }
-        return columns
-    }
-
-    private String prefix(Column column) {
-        column.boolean ? "is" : "get"
-    }
-
-    private String getReturnType(Column column) {
-        switch (column.getAffinity()) {
-            case DataAffinity.INTEGER:
-                if (column.nullable) {
-                    return "Integer";
-                }
-                return "int";
-            case DataAffinity.NONE:
-                return "byte[]";
-            case DataAffinity.TEXT:
-                return "String";
-            case DataAffinity.NUMERIC:
-                if (column.boolean)
-                    return column.nullable ? "Boolean" : "boolean"
-                return "String"
-            case DataAffinity.REAL:
-                if (column.nullable) {
-                    return "Double";
-                }
-                return "double";
-            default:
-                throw new RuntimeException("unknown affinity: " + column.affinity.name());
+        use(ColumnJavaCategory) {
+            def columns = []
+            table.columns.each {
+                Column column -> columns << ['type': column.dataType, 'name': column.camelizedSmallName, 'access': column.getterPrefix + column.camelizedName]
+            }
+            return columns
         }
     }
 }
