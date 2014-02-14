@@ -1,4 +1,5 @@
 package com.novoda.sqlite.generator
+
 import com.novoda.sqlite.model.Column
 import groovy.text.GStringTemplateEngine
 
@@ -16,12 +17,10 @@ public static void set$methodName($inputType value, android.content.ContentValue
     }
 
     String print() {
-        use(ColumnJavaCategory) {
-            new GStringTemplateEngine().createTemplate(TEMPLATE)
-                    .make([methodName: column.camelizedName,
-                    inputType: column.dataType,
-                    rowName: column.name])
-                    .toString()
-        }
+        new GStringTemplateEngine().createTemplate(TEMPLATE)
+                .make([methodName: column.camelizedName,
+                inputType: column.dataType,
+                rowName: column.name])
+                .toString()
     }
 }

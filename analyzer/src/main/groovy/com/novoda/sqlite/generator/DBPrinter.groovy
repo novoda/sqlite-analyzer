@@ -22,8 +22,10 @@ public final class DB {
     }
 
     private String emitClass() {
-        new GStringTemplateEngine().createTemplate(TEMPLATE)
-                .make(printers: printers, packageName: packageName)
-                .toString()
+        use(TableJavaCategory, ColumnJavaCategory, ColumnAndroidCategory) {
+            new GStringTemplateEngine().createTemplate(TEMPLATE)
+                    .make(printers: printers, packageName: packageName)
+                    .toString()
+        }
     }
 }

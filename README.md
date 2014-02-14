@@ -1,7 +1,7 @@
 # SQLiteAnalyzer
 
 ### Purpose
-This spike aims to generate java utility code from given sql migrations.
+Generate java utility code from sqlite migration files or sqlite databases.
 
 ### Mechanics
 We generate an in-memory sqlite database, run the migrations on it and analyze the resulting tables to construct a DatabaseModel.
@@ -10,8 +10,13 @@ This model is then used to generate code.
 ### Libraries
 We use [sqlite-jdbc](https://bitbucket.org/xerial/sqlite-jdbc) to create and analyze the database.
 
+### Releases
+There are no releases yet.
+
 ### Integration
-To integrate sqliteAnalyzer into your project, let your buildscript depend on the binary,
+The sqliteAnalyzer comes as a gradle plugin relying on the android gradle plugin.
+
+To integrate sqliteAnalyzer into your project, build the analyzer project and let your buildscript depend on the binary,
 or see the setup under the `buildSrc` sub-directory for an example that directly links to the sources.
 
 The code generation is then integrated with the gradle build via:
@@ -21,7 +26,7 @@ apply plugin: 'sqlite-access'
 
 sqliteAccess {
     migrationsDir 'src/main/assets/migrations'
-    packageName "com.novoda.sqliteprovider.demo.simple"
+    packageName 'com.novoda.sqliteprovider.demo.simple'
 }
 ```
 

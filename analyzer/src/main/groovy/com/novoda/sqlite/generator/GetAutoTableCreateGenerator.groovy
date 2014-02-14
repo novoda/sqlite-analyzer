@@ -4,14 +4,12 @@ import com.novoda.sqlite.model.Column
 import com.novoda.sqlite.model.Table
 import groovy.text.GStringTemplateEngine
 
-class GetTableFromCursorGenerator {
+class GetAutoTableCreateGenerator {
 
     private static final String TEMPLATE = '''\
-public static $returnType fromCursor(android.database.Cursor cursor) {
-<% columns.each { column -> %>\
-    $column.type $column.name = $column.access(cursor);
-<% } %>\
-    return new $returnType(\
+public static $returnType create(\
+<% columns.eachWithIndex { column, index -> out << "$column.type $column.name"; if (index < columns.size -1) out << ", "} %>) {
+    return new AutoValue_$returnType(\
 <% columns.eachWithIndex { column, index -> out << "$column.name"; if (index < columns.size -1) out << ", "} %>\
 );
 }
@@ -19,7 +17,7 @@ public static $returnType fromCursor(android.database.Cursor cursor) {
     private final Column column
     private final Table table
 
-    GetTableFromCursorGenerator(Table table) {
+    GetAutoTableCreateGenerator(Table table) {
         this.table = table
         this.column = column
     }

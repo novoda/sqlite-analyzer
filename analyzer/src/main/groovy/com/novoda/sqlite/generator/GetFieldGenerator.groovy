@@ -17,13 +17,11 @@ public $returnType $prefix$methodName() {
     }
 
     String print() {
-        use(ColumnJavaCategory) {
-            new GStringTemplateEngine().createTemplate(TEMPLATE)
-                    .make([returnType: column.dataType,
-                    methodName: column.camelizedName,
-                    variableName: column.camelizedSmallName,
-                    prefix: column.getterPrefix])
-                    .toString()
-        }
+        new GStringTemplateEngine().createTemplate(TEMPLATE)
+                .make([returnType: column.dataType,
+                methodName: column.camelizedName,
+                variableName: column.camelizedSmallName,
+                prefix: column.getterPrefix])
+                .toString()
     }
 }

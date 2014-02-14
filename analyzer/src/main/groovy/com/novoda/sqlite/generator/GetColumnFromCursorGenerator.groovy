@@ -23,16 +23,14 @@ public static $returnType $prefix$methodName(android.database.Cursor cursor) {
     }
 
     String print() {
-        use(ColumnJavaCategory, ColumnAndroidCategory) {
-            new GStringTemplateEngine().createTemplate(TEMPLATE)
-                    .make([returnType: column.dataType,
-                    methodName: column.camelizedName,
-                    rowName: column.name,
-                    cursorFunction: column.cursorAccessor,
-                    nullable: column.nullable,
-                    isBool: column.boolean,
-                    prefix: column.getterPrefix])
-                    .toString()
-        }
+        new GStringTemplateEngine().createTemplate(TEMPLATE)
+                .make([returnType: column.dataType,
+                methodName: column.camelizedName,
+                rowName: column.name,
+                cursorFunction: column.cursorAccessor,
+                nullable: column.nullable,
+                isBool: column.boolean,
+                prefix: column.getterPrefix])
+                .toString()
     }
 }

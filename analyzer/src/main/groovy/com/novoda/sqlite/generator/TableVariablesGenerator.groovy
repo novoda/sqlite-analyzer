@@ -8,7 +8,7 @@ public class TableVariablesGenerator {
     private static final String TEMPLATE =
             '''\
 <% columns.each { column -> %>\
-    private final $column.dataType $column.name;
+    private final $column.dataType $column.camelizedSmallName;
 <% } %>
 '''
 
@@ -19,17 +19,7 @@ public class TableVariablesGenerator {
     String print() {
         new GStringTemplateEngine()
                 .createTemplate(TEMPLATE)
-                .make([columns: createColumns()])
+                .make([columns: table.columns])
                 .toString()
-    }
-
-    private createColumns() {
-        def columns = []
-        use(ColumnJavaCategory) {
-            table.columns.each {
-                column -> columns << ['dataType': column.dataType, 'name': column.camelizedSmallName]
-            }
-            return columns
-        }
     }
 }

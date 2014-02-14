@@ -2,7 +2,7 @@ package com.novoda.sqlite.generator
 import com.novoda.sqlite.model.Database
 import groovy.text.GStringTemplateEngine
 
-public class TablesGenerator {
+public class TableNamesGenerator {
 
     private static final String TEMPLATE = '''\
 public static final class Tables {
@@ -13,7 +13,7 @@ public static final class Tables {
 '''
     private final Database database
 
-    public TablesGenerator(Database database) {
+    public TableNamesGenerator(Database database) {
         this.database = database
     }
 

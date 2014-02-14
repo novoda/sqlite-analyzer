@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,11 +37,10 @@ public class MainFragment extends Fragment {
     }
 
     private void saveNewShopToDatabase() {
-        Uri table = FireworkProvider.SHOPS;
         ContentValues values = new ContentValues(1);
         DB.Shop.setName("MyNewShop" + System.currentTimeMillis(), values);
         DB.Shop.setPostcode("LN11YA", values);
-        getActivity().getContentResolver().insert(table, values);
+        getActivity().getContentResolver().insert(FireworkProvider.SHOPS, values);
     }
 
     private void retrieveShopsFromDatabase() {

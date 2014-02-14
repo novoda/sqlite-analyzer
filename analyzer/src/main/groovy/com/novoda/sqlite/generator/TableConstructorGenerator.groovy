@@ -9,12 +9,12 @@ public class TableConstructorGenerator {
             '''\
 public $className(\
 <% columns.eachWithIndex {
-  column, index -> out << "$column.dataType $column.name"
-  if (index < columns.size-1)
+  column, index -> out << "$column.dataType $column.varName"
+  if (index < columns.size()-1)
       out << ", "
 } %>) {
 <% columns.each { column -> %>\
-   this.$column.name = $column.name;
+   this.$column.varName = $column.varName;
 <% } %>\
 }
 '''
@@ -26,17 +26,7 @@ public $className(\
     String print() {
         new GStringTemplateEngine()
                 .createTemplate(TEMPLATE)
-                .make([className: table.camelizedName, columns: createColumns()])
+                .make([className: table.camelizedName, columns: table.columns])
                 .toString()
-    }
-
-    private createColumns() {
-        def columns = []
-        use(ColumnJavaCategory) {
-            table.columns.each {
-                column -> columns << ['dataType': column.dataType, 'name': column.camelizedSmallName]
-            }
-        }
-        return columns
     }
 }

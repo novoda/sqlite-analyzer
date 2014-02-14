@@ -8,7 +8,7 @@ public class TableColumnsGenerator {
     private static final String TEMPLATE = '''\
 public static final class $classname {
 <% columns.each { column ->  %>\
-    public static final String ${column.camelizedName} = "${column.varName}";
+    public static final String ${column.camelizedName} = "${column.name}";
 <% } %>\
 }
 '''
