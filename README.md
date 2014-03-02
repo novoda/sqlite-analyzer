@@ -1,14 +1,20 @@
 # SQLiteAnalyzer
+Caution: This project is still in an early alpha stage.
 
 ### Purpose
-Generate java utility code from sqlite migration files or sqlite databases.
+Generate java/android database access code by analyzing sqlite migration files or sqlite databases, keeping full control of what
+code is generated.
 
 ### Mechanics
-We generate an in-memory sqlite database, run the migrations on it and analyze the resulting tables to construct a DatabaseModel.
+We create an in-memory sqlite database, either from a given database file or by running sql migrations, and analyze its tables to construct a DatabaseModel.
 This model is then used to generate code.
 
 ### Libraries
 We use [sqlite-jdbc](https://bitbucket.org/xerial/sqlite-jdbc) to create and analyze the database.
+Groovy is used to generate code, Gradle to hook the functionality into the android build system.
+
+### Demos
+The project provides 3 demo applications that create and use database access code, using SqliteProvider, android-asset-helper and Google Auto resp.
 
 ### Releases
 There are no releases yet.

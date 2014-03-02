@@ -11,14 +11,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AnalyzerTestOnArte {
+public class AnalyzerTestOnSampleMigrations {
 
     private Analyzer analyzer;
     private Database database;
 
     @Before
     public void setUp() throws Exception {
-        String migrationsDir = MigrationsInDir.class.getResource("/arte_migrations").getFile();
+        String migrationsDir = MigrationsInDir.class.getResource("/sample_migrations").getFile();
         MigrationsInDir migrations = new MigrationsInDir(new File(migrationsDir));
         Connector connector = new MigrationsConnector(migrations);
         analyzer = new Analyzer(connector.connect());
@@ -26,7 +26,7 @@ public class AnalyzerTestOnArte {
     }
 
     /*
-    * see file: arte_migrations/13_program_twitter_tags.sql
+    * see file: sample_migrations/13_program_twitter_tags.sql
      */
     @Test
     public void testTableDependencies() throws Exception {
