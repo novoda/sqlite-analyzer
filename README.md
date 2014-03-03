@@ -5,25 +5,11 @@ Caution: This project is still in an early alpha stage.
 Generate java/android database access code by analyzing sqlite migration files or sqlite databases, keeping full control of what
 code is generated.
 
-### Mechanics
-We create an in-memory sqlite database, either from a given database file or by running sql migrations, and analyze its tables to construct a DatabaseModel.
-This model is then used to generate code.
-
-### Libraries
-We use [sqlite-jdbc](https://bitbucket.org/xerial/sqlite-jdbc) to create and analyze the database.
-Groovy is used to generate code, Gradle to hook the functionality into the android build system.
-
-### Demos
-The project provides 3 demo applications that create and use database access code, using SqliteProvider, android-asset-helper and Google Auto resp.
-
-### Releases
-There are no releases yet.
-
 ### Integration
 The sqliteAnalyzer comes as a gradle plugin relying on the android gradle plugin.
 
-To integrate sqliteAnalyzer into your project, build the analyzer project and let your buildscript depend on the binary,
-or see the setup under the `buildSrc` sub-directory for an example that directly links to the sources.
+To integrate sqliteAnalyzer into your project, we currently recommend depending directly on the sources.
+See the setup under the `buildSrc` sub-directory for an example.
 
 The code generation is then integrated with the gradle build via:
 
@@ -35,6 +21,23 @@ sqliteAccess {
     packageName 'com.novoda.sqliteprovider.demo.simple'
 }
 ```
+
+Try `./gradlew clean assembleDebug` and observe the generated code under `build/source/sqlite/debug/`.
+
+### Demos
+The project provides 3 demo applications that create and use database access code, using SqliteProvider, android-asset-helper and Google Auto resp.
+
+### Mechanics
+We create an in-memory sqlite database, either from a given database file or by running sql migrations, and analyze its tables to construct a DatabaseModel.
+This model is then used to generate code.
+
+### Libraries
+We use [sqlite-jdbc](https://bitbucket.org/xerial/sqlite-jdbc) to create and analyze the database.
+[Groovy](http://groovy.codehaus.org/) is used to generate code, [Gradle](http://www.gradle.org/) to hook the functionality into the [android build system](http://tools.android.com/tech-docs/new-build-system).
+
+### Releases
+There are no releases yet.
+
 
 License
 -------
