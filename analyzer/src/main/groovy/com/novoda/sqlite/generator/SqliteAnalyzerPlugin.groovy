@@ -1,8 +1,6 @@
 package com.novoda.sqlite.generator
-
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.ProjectConfigurationException
 
 class SqliteAnalyzerPlugin implements Plugin<Project> {
     void apply(Project project) {
@@ -36,10 +34,10 @@ class SqliteAnalyzerPlugin implements Plugin<Project> {
         }
     }
 
-    private void ensurePluginDependencies(Project project) {
+    private static void ensurePluginDependencies(Project project) {
         def hasAndroid = project.plugins.hasPlugin('android') || project.plugins.hasPlugin('android-library')
         if (!hasAndroid) {
-            throw new ProjectConfigurationException("The 'android' or 'android-library' plugin is required.")
+            throw new RuntimeException("The 'android' or 'android-library' plugin is required.")
         }
     }
 }

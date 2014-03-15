@@ -17,8 +17,8 @@ class GenerateCodeFromMigrations extends BaseGenerateCode {
     File migrationsDir
 
     protected Connection createConnection() {
-        def arteMigrations = new MigrationsInDir(migrationsDir)
-        new MigrationsConnector(arteMigrations).connect()
+        def migrations = new MigrationsInDir(migrationsDir)
+        new MigrationsConnector(migrations).connect()
     }
 
 }
