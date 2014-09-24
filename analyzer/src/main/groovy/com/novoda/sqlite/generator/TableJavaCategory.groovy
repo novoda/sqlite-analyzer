@@ -4,10 +4,10 @@ import com.novoda.sqlite.model.Table
 
 class TableJavaCategory {
 
-    private static orgColumns = Table.metaClass.getMetaMethod('getColumns', [] as Class[])
+//    private static orgColumns = Table.metaClass.getMetaMethod('getColumns', [] as Column[])
 
-    static Column[] getColumns(Table table) {
-        orgColumns.invoke(table).grep({it.name != '_id'})
+    static Column[] getNoIdColumns(Table table) {
+        table.columns.grep({it.name != '_id'})
     }
 }
 
