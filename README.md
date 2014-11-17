@@ -2,19 +2,17 @@
 
 Code generation for Java/Android database access.
 
-
 ## Description
 
 Generates java/android database access code by analyzing sqlite migration files or sqlite databases, keeping full control of what code is generated.
-
-To integrate sqliteAnalyzer into your project, it is recommended for now that you depend directly on the sources. See the setup under the `buildSrc` sub-directory for an example.
 
 sqlite-analyzer creates an in-memory sqlite database, either from a given database file or by running sql migrations, and analyzes its tables to construct a DatabaseModel. This model is then used to generate code.
 
 This project uses [sqlite-jdbc](https://bitbucket.org/xerial/sqlite-jdbc) to create and analyze the database. [Groovy](http://groovy.codehaus.org/) is used to generate code, [Gradle](http://www.gradle.org/) to hook the functionality into the [android build system](http://tools.android.com/tech-docs/new-build-system).
 
-
 ## Adding to your project
+
+To integrate sqliteAnalyzer into your project, it is recommended for now that you depend directly on the sources. See the setup under the `buildSrc` sub-directory for an example.
 
 After you've added the sources to `buildSrc`, you can start using this library, add these lines to the `build.gradle` of your project:
 
