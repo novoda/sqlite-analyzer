@@ -1,17 +1,22 @@
-# SQLiteAnalyzer
-Caution: This project is still in an early alpha stage.
+# sqlite-analyzer [![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE.txt)
 
-### Purpose
-Generate java/android database access code by analyzing sqlite migration files or sqlite databases, keeping full control of what
-code is generated.
+Code generation for Java/Android database access.
 
-### Integration
-The sqliteAnalyzer comes as a gradle plugin relying on the android gradle plugin.
 
-To integrate sqliteAnalyzer into your project, we currently recommend depending directly on the sources.
-See the setup under the `buildSrc` sub-directory for an example.
+## Description
 
-The code generation is then integrated with the gradle build via:
+Generates java/android database access code by analyzing sqlite migration files or sqlite databases, keeping full control of what code is generated.
+
+To integrate sqliteAnalyzer into your project, it is recommended for now that you depend directly on the sources. See the setup under the `buildSrc` sub-directory for an example.
+
+sqlite-analyzer creates an in-memory sqlite database, either from a given database file or by running sql migrations, and analyzes its tables to construct a DatabaseModel. This model is then used to generate code.
+
+This project uses [sqlite-jdbc](https://bitbucket.org/xerial/sqlite-jdbc) to create and analyze the database. [Groovy](http://groovy.codehaus.org/) is used to generate code, [Gradle](http://www.gradle.org/) to hook the functionality into the [android build system](http://tools.android.com/tech-docs/new-build-system).
+
+
+## Adding to your project
+
+After you've added the sources to `buildSrc`, you can start using this library, add these lines to the `build.gradle` of your project:
 
 ```groovy
 apply plugin: 'sqlite-access'
@@ -22,37 +27,18 @@ sqliteAccess {
 }
 ```
 
-Try `./gradlew clean assembleDebug` and observe the generated code under `build/source/sqlite/debug/`.
 
-### Demos
+## Simple usage
+
+Try `./gradlew clean assembleDebug` and observe the generated code under `build/source/sqlite/debug/`.
 The project provides 3 demo applications that create and use database access code, using SqliteProvider, android-asset-helper and Google Auto resp.
 
-### Mechanics
-We create an in-memory sqlite database, either from a given database file or by running sql migrations, and analyze its tables to construct a DatabaseModel.
-This model is then used to generate code.
 
-### Libraries
-We use [sqlite-jdbc](https://bitbucket.org/xerial/sqlite-jdbc) to create and analyze the database.
-[Groovy](http://groovy.codehaus.org/) is used to generate code, [Gradle](http://www.gradle.org/) to hook the functionality into the [android build system](http://tools.android.com/tech-docs/new-build-system).
+## Links
 
-### Releases
-There are no releases yet.
+Here are a list of useful links:
 
-
-License
--------
-
-    (c) Copyright 2014 Novoda
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
+ * We always welcome people to contribute new features or bug fixes, [here is how](https://github.com/novoda/novoda/blob/master/CONTRIBUTING.md)
+ * If you have a problem check the [Issues Page](https://github.com/novoda/sqlite-analyzer/issues) first to see if we are working on it
+ * For further usage or to delve more deeply checkout the [Project Wiki](https://github.com/novoda/sqlite-analyzer/wiki)
+ * Looking for community help, browse the already asked [Stack Overflow Questions](http://stackoverflow.com/questions/tagged/support-sqlite-analyzer) or use the tag: `support-sqlite-analyzer` when posting a new question
