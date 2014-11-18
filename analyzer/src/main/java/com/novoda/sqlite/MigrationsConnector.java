@@ -20,6 +20,12 @@ public class MigrationsConnector implements Connector {
 
     @Override
     public Connection connect() throws SQLException {
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         Connection connection = DriverManager.getConnection("jdbc:sqlite::memory:");
         executeMigrations(connection);
         return connection;

@@ -15,6 +15,11 @@ public class FileConnector implements Connector {
 
     @Override
     public Connection connect() throws SQLException {
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         String dbPath = "jdbc:sqlite:" + dbFile.getAbsolutePath();
         return DriverManager.getConnection(dbPath);
     }

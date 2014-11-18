@@ -11,12 +11,12 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 dependencies {
-    compile 'org.xerial:sqlite-jdbc:3.7.15-SNAPSHOT'
+    compile 'org.xerial:sqlite-jdbc:3.8.7'
 
     compile gradleApi()
     compile localGroovy()
 
-    testCompile 'junit:junit:4.+'
+    testCompile 'junit:junit:4.11'
 }
 
 group = 'com.novoda'
