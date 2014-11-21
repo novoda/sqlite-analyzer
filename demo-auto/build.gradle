@@ -28,3 +28,5 @@ sqliteAccess {
     packageName 'com.example.sqlite'
     generateAuto true
 }
+
+apply from: "$rootDir/team-props/lint.gradle"
