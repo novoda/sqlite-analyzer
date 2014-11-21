@@ -1,9 +1,11 @@
 .settings
 build/
 .gradle
+/buildSrc/local.properties
 /local.properties
 /.idea
 */build
 /classes
 .DS_Store
 *.iml
+

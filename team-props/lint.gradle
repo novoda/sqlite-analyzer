@@ -1,0 +1,7 @@
+android {
+    lintOptions {
+
+        // Fallback lint configuration (default severities, etc.)
+        lintConfig file("$rootDir/team-props/lint/custom.xml")
+    }
+}
