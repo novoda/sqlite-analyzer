@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 apply plugin: 'android-command'
-apply plugin: 'sqlite-access'
+apply plugin: 'sqlite-analyzer'
 
 android {
     buildToolsVersion rootProject.ext.buildToolsVersion
