@@ -12,12 +12,26 @@ This project uses [sqlite-jdbc](https://bitbucket.org/xerial/sqlite-jdbc) to cre
 
 ## Adding to your project
 
-To integrate sqliteAnalyzer into your project, it is recommended for now that you depend directly on the sources. See the setup under the `buildSrc` sub-directory for an example.
+To integrate sqliteAnalyzer into your project, it is recommended for now that you depend directly on the sources. See the setup under the
+`buildSrc` sub-directory for an example.
 
-After you've added the sources to `buildSrc`, you can start using this library, add these lines to the `build.gradle` of your project:
+If you prefer you can use it from jcenter directly, just add these lines to the build.gradle of your project:
 
 ```groovy
-apply plugin: 'sqlite-access'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:sqlite-analyzer:0.0.1-beta'
+    }
+}
+```
+
+After you've added the sources to `buildSrc` or added the buildscript dependency, you can start using this library, add these lines to the `build.gradle` of your project:
+
+```groovy
+apply plugin: 'sqlite-analyzer'
 
 sqliteAccess {
     migrationsDir 'src/main/assets/migrations'
