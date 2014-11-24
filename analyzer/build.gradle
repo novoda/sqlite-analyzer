@@ -27,7 +27,6 @@ ext {
     targetCompatibility = 1.6
 }
 
-
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from groovydoc

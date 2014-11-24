@@ -12,8 +12,12 @@ android {
     }
 }
 
+repositories {
+    jcenter()
+}
+
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
+    compile 'com.novoda:sqlite-provider:1.0.5'
 }
 
 sqliteAccess {
