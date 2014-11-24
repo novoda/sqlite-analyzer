@@ -20,6 +20,14 @@ public class MigrationsConnector implements Connector {
 
     @Override
     public Connection connect() throws SQLException {
+        try {
+            // Dynamically load the class in order to correctly initialise JDBC drivers, as described in
+            // http://stackoverflow.com/questions/6740601/what-does-class-fornameorg-sqlite-jdbc-do/6740632#6740632
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         Connection connection = DriverManager.getConnection("jdbc:sqlite::memory:");
         executeMigrations(connection);
         return connection;

@@ -31,7 +31,7 @@ public static $returnType create(\
 
     private createColumns() {
         def columns = []
-        table.columns.each {
+        table.noIdColumns.each {
             Column column -> columns << ['type': column.dataType, 'name': column.camelizedSmallName, 'access': column.getterPrefix + column.camelizedName]
         }
         return columns
