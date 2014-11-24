@@ -1,4 +1,4 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 apply plugin: 'android-command'
 apply plugin: 'sqlite-access'
 
@@ -13,7 +13,7 @@ android {
 }
 
 dependencies {
-    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.+'
+    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
 }
 
 sqliteAccess {
