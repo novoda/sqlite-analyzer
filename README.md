@@ -4,7 +4,7 @@ Code generation for Java/Android database access.
 
 ## Description
 
-Generates java/android database access code by analyzing sqlite migration files or sqlite databases, keeping full control of what code is generated.
+Generates java/android database access code by analysing sqlite migration files or sqlite databases, keeping full control of what code is generated.
 
 sqlite-analyzer creates an in-memory sqlite database, either from a given database file or by running sql migrations, and analyzes its tables to construct a DatabaseModel. This model is then used to generate code.
 
