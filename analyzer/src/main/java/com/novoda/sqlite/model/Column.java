@@ -25,9 +25,10 @@ public final class Column {
 
     public String getCamelizedSmallName() {
         String camel = StringUtil.camelify(name);
-        if (camel.length() <= 1)
-            return camel;
-        return camel.substring(0,1).toLowerCase()+camel.substring(1);
+        if (camel.length() <= 1) {
+            return "_" + camel;
+        }
+        return "_" + camel.substring(0, 1).toLowerCase() + camel.substring(1);
     }
 
     public String getType() {
@@ -43,7 +44,7 @@ public final class Column {
     }
 
     public boolean isBoolean() {
-        return  affinity == DataAffinity.NUMERIC && type.toLowerCase().contains("bool");
+        return affinity == DataAffinity.NUMERIC && type.toLowerCase().contains("bool");
     }
 
     /*
@@ -52,21 +53,26 @@ public final class Column {
  */
     private DataAffinity computeAffinity(String type) {
         String deftype = type.toLowerCase();
-        if (deftype.contains("int"))
+        if (deftype.contains("int")) {
             return DataAffinity.INTEGER;
-        if (containsOneOf(deftype, "char", "clob", "text"))
+        }
+        if (containsOneOf(deftype, "char", "clob", "text")) {
             return DataAffinity.TEXT;
-        if (containsOneOf(deftype, "real", "floa", "doub"))
+        }
+        if (containsOneOf(deftype, "real", "floa", "doub")) {
             return DataAffinity.REAL;
-        if (containsOneOf(deftype, "blob") || deftype.equals(""))
+        }
+        if (containsOneOf(deftype, "blob") || deftype.equals("")) {
             return DataAffinity.NONE;
+        }
         return DataAffinity.NUMERIC;
     }
 
     private boolean containsOneOf(String toCheck, String... values) {
         for (String value : values) {
-            if (toCheck.contains(value))
+            if (toCheck.contains(value)) {
                 return true;
+            }
         }
         return false;
     }

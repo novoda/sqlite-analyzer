@@ -23,7 +23,7 @@ public class MainActivity extends ListActivity {
 		ListAdapter adapter = new SimpleCursorAdapter(this, 
 				android.R.layout.simple_list_item_2,
 				employees, 
-				new String[] {Employees.FirstName, Employees.LastName},
+				new String[] {Employees.Firstname, Employees.Lastname},
 				new int[] {android.R.id.text1, android.R.id.text2});
 
 		getListView().setAdapter(adapter);
