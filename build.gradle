@@ -6,7 +6,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.14.4'
+        classpath 'com.android.tools.build:gradle:1.0.0'
         classpath 'com.novoda:gradle-android-command-plugin:1.2.1'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.2'
     }
@@ -22,10 +22,6 @@ allprojects {
 }
 
 ext {
-    buildToolsVersion = '19.1.0'
-    compileSdkVersion = 19
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.1'
+    buildToolsVersion = '21.1.2'
+    compileSdkVersion = 21
 }
