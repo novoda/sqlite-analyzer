@@ -1,5 +1,6 @@
 package com.novoda.sqlite;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +27,7 @@ public class StringUtil {
 
     private static String capitalize(String string) {
         if (string.length() > 1) {
-            return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
+            return string.substring(0, 1).toUpperCase(Locale.US) + string.substring(1).toLowerCase(Locale.US);
         }
         return "";
     }
