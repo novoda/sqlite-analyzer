@@ -1,5 +1,7 @@
 package com.novoda.sqlite.model;
 
+import java.util.Locale;
+
 public enum DataAffinity {
     TEXT, NUMERIC, INTEGER, REAL, NONE;
 
@@ -12,7 +14,7 @@ public enum DataAffinity {
      * section 2.1 Determination of column affinity
      */
     private static DataAffinity computeAffinity(String type) {
-        String deftype = type.toLowerCase();
+        String deftype = type.toLowerCase(Locale.US);
         if (deftype.contains("int")) {
             return DataAffinity.INTEGER;
         }

@@ -2,6 +2,8 @@ package com.novoda.sqlite.model;
 
 import com.novoda.sqlite.StringUtil;
 
+import java.util.Locale;
+
 public final class Column {
     private final String name;
     private final String type;
@@ -28,7 +30,7 @@ public final class Column {
         if (camel.length() <= 1) {
             return "_" + camel;
         }
-        return "_" + camel.substring(0, 1).toLowerCase() + camel.substring(1);
+        return "_" + camel.substring(0, 1).toLowerCase(Locale.US) + camel.substring(1);
     }
 
     public String getType() {
