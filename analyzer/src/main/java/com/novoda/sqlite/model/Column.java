@@ -46,7 +46,7 @@ public final class Column {
     }
 
     public boolean isBoolean() {
-        return affinity == DataAffinity.NUMERIC && type.toLowerCase().contains("bool");
+        return affinity == DataAffinity.NUMERIC && type.toLowerCase(Locale.US).contains("bool");
     }
 
 
