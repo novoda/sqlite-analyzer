@@ -2,17 +2,19 @@ package com.novoda.sqlite.model;
 
 import com.novoda.sqlite.StringUtil;
 
+import java.util.Locale;
+
 public final class Column {
     private final String name;
     private final String type;
-    private boolean nullable;
-    private DataAffinity affinity;
+    private final boolean nullable;
+    private final DataAffinity affinity;
 
     public Column(String name, String type, boolean nullable) {
         this.name = name;
         this.type = type;
         this.nullable = nullable;
-        this.affinity = computeAffinity(type);
+        this.affinity = DataAffinity.fromType(type);
     }
 
     public String getName() {
@@ -25,9 +27,10 @@ public final class Column {
 
     public String getCamelizedSmallName() {
         String camel = StringUtil.camelify(name);
-        if (camel.length() <= 1)
-            return camel;
-        return camel.substring(0,1).toLowerCase()+camel.substring(1);
+        if (camel.length() <= 1) {
+            return "_" + camel;
+        }
+        return "_" + camel.substring(0, 1).toLowerCase(Locale.US) + camel.substring(1);
     }
 
     public String getType() {
@@ -43,32 +46,8 @@ public final class Column {
     }
 
     public boolean isBoolean() {
-        return  affinity == DataAffinity.NUMERIC && type.toLowerCase().contains("bool");
+        return affinity == DataAffinity.NUMERIC && type.toLowerCase(Locale.US).contains("bool");
     }
 
-    /*
- * See http://www.sqlite.org/datatype3.html
- * section 2.1 Determination of column affinity
- */
-    private DataAffinity computeAffinity(String type) {
-        String deftype = type.toLowerCase();
-        if (deftype.contains("int"))
-            return DataAffinity.INTEGER;
-        if (containsOneOf(deftype, "char", "clob", "text"))
-            return DataAffinity.TEXT;
-        if (containsOneOf(deftype, "real", "floa", "doub"))
-            return DataAffinity.REAL;
-        if (containsOneOf(deftype, "blob") || deftype.equals(""))
-            return DataAffinity.NONE;
-        return DataAffinity.NUMERIC;
-    }
-
-    private boolean containsOneOf(String toCheck, String... values) {
-        for (String value : values) {
-            if (toCheck.contains(value))
-                return true;
-        }
-        return false;
-    }
 
 }

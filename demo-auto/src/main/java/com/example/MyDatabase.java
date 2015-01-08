@@ -31,7 +31,7 @@ public class MyDatabase extends SQLiteAssetHelper {
 		SQLiteDatabase db = getReadableDatabase();
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-		String [] sqlSelect = {"0 _id", Employees.FirstName, Employees.LastName};
+		String [] sqlSelect = {"0 _id", Employees.Firstname, Employees.Lastname};
 		String sqlTables = DB.Tables.Employees;
 
 		qb.setTables(sqlTables);
