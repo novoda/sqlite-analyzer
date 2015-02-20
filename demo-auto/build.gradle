@@ -9,7 +9,6 @@ android {
 
     defaultConfig {
         minSdkVersion 8
-        targetSdkVersion TARGET_SDK_VERSION
     }
 
     packagingOptions {
