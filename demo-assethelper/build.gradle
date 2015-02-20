@@ -3,8 +3,8 @@ apply plugin: 'android-command'
 apply plugin: 'sqlite-analyzer'
 
 android {
-    buildToolsVersion rootProject.ext.buildToolsVersion
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion BUILD_TOOLS_VERSION
+    compileSdkVersion COMPILE_SDK_VERSION
 
     defaultConfig {
         minSdkVersion 8
