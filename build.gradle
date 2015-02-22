@@ -1,13 +1,14 @@
 buildscript {
     repositories {
+        jcenter()
         mavenCentral()
         maven {
             url "https://oss.sonatype.org/content/repositories/snapshots"
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0'
-        classpath 'com.novoda:gradle-android-command-plugin:1.2.1'
+        classpath 'com.android.tools.build:gradle:1.1.0'
+        classpath 'com.novoda:gradle-android-command-plugin:1.3.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.2'
     }
 }
@@ -22,6 +23,6 @@ allprojects {
 }
 
 ext {
-    buildToolsVersion = '21.1.2'
-    compileSdkVersion = 21
+    BUILD_TOOLS_VERSION = '21.1.2'
+    COMPILE_SDK_VERSION = 21
 }
