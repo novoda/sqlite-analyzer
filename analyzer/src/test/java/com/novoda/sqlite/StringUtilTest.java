@@ -2,20 +2,48 @@ package com.novoda.sqlite;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+import static com.novoda.sqlite.StringUtil.*;
 
 public class StringUtilTest {
+
     @Test
-    public void shouldCamelizeColumnNames(){
-        assertEquals("ColumnId", StringUtil.camelify("COLUMN_ID"));
-        assertEquals("Columnid", StringUtil.camelify("columnID"));
-        assertEquals("Columnid", StringUtil.camelify("COLUMNID"));
+    public void shouldCamelizeAllUppercaseUnderscoredColumn() {
+        assertEquals("ColumnId", camelify("COLUMN_ID"));
     }
 
     @Test
-    public void shouldCamelizeColumnNamesForMethods() {
-        assertEquals("getColumnId", StringUtil.asCamelifyGetMethod("COLUMN_ID"));
-        assertEquals("getColumnid", StringUtil.asCamelifyGetMethod("columnID"));
-        assertEquals("getColumnid", StringUtil.asCamelifyGetMethod("COLUMNID"));
+    public void shouldCamelizeLowerUnderscoredColumn() {
+        assertEquals("ColumnId", camelify("column_id"));
+    }
+
+    @Test
+    public void shouldCamelizeMixedcaseColumn() {
+        assertEquals("Columnid", camelify("columnID"));
+    }
+
+    @Test
+    public void shouldCamelizeAllUppercaseColumn() {
+        assertEquals("Columnid", camelify("COLUMNID"));
+    }
+
+    @Test
+    public void shouldCamelizeGetterForAllUppercaseUnderscoredColumn() {
+        assertEquals("getColumnId", asCamelifyGetMethod("COLUMN_ID"));
+    }
+
+    @Test
+    public void shouldCamelizeGetterForAllLowercaseUnderscoredColumn() {
+        assertEquals("getColumnId", asCamelifyGetMethod("column_id"));
+    }
+
+    @Test
+    public void shouldCamelizeGetterForMixedcaseColumn() {
+        assertEquals("getColumnid", asCamelifyGetMethod("columnID"));
+    }
+
+    @Test
+    public void shouldCamelizeGetterForAllUppercaseColumn() {
+        assertEquals("getColumnid", asCamelifyGetMethod("COLUMNID"));
     }
 }
