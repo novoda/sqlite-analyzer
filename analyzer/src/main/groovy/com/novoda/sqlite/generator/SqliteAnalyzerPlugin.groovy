@@ -9,7 +9,7 @@ class SqliteAnalyzerPlugin implements Plugin<Project> {
         project.afterEvaluate {
             if (extension.migrationsDir) {
                 project.android.applicationVariants.all { variant ->
-                    File sourceFolder = project.file("${project.buildDir}/source/sqlite/${variant.dirName}")
+                    File sourceFolder = project.file("${project.buildDir}/generated/source/sqlite/${variant.dirName}")
                     def javaGenerationTask = project.tasks.create(name: "generate${variant.name.capitalize()}SqliteAccessFromMigrations", type: GenerateCodeFromMigrations) {
                         migrationsDir project.file(extension.migrationsDir)
                         outputDir sourceFolder
@@ -21,7 +21,7 @@ class SqliteAnalyzerPlugin implements Plugin<Project> {
             }
             if (extension.databaseFile) {
                 project.android.applicationVariants.all { variant ->
-                    File sourceFolder = project.file("${project.buildDir}/source/sqlite/${variant.dirName}")
+                    File sourceFolder = project.file("${project.buildDir}/generated/source/sqlite/${variant.dirName}")
                     def javaGenerationTask = project.tasks.create(name: "generate${variant.name.capitalize()}SqliteAccessFromFile", type: GenerateCodeFromFile) {
                         databaseFile project.file(extension.databaseFile)
                         outputDir sourceFolder
