@@ -8,6 +8,9 @@ public class TableColumnsGenerator {
     private static final String TEMPLATE = '''\
 public static final class $classname {
 <% columns.each { column ->  %>\
+    /**
+     * Generated from the sqlite column named ${column.name} with an affinity of ${column.affinity}.
+     */
     public static final String ${column.camelizedName} = "${column.name}";
 <% } %>\
 }

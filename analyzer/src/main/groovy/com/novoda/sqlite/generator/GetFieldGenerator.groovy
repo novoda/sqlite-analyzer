@@ -6,8 +6,11 @@ import groovy.text.GStringTemplateEngine
 class GetFieldGenerator {
 
     private static final String TEMPLATE = '''\
+/**
+ * Generated from the sqlite column named $rowName with an affinity of $affinity.
+ */
 public $returnType $prefix$methodName() {
-  return $variableName;
+    return $variableName;
 }
 '''
     private final Column column
@@ -21,7 +24,9 @@ public $returnType $prefix$methodName() {
                 .make([returnType: column.dataType,
                 methodName: column.camelizedName,
                 variableName: column.camelizedSmallName,
-                prefix: column.getterPrefix])
+                prefix: column.getterPrefix,
+                rowName: column.name,
+                affinity: column.affinity])
                 .toString()
     }
 }
