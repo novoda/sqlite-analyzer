@@ -50,7 +50,12 @@ The project provides 3 demo applications that create and use database access cod
 
 **Use column names**
 ````
-    queryBuilder.appendWhere(DB.Columns.Shop.Name + " like A*")
+    queryBuilder.appendWhere(DB.Columns.Shop.Name + " like 'A%'")
+```
+
+Simplified use with static import 
+```
+    projection = new String[] {Employees.Firstname, Employees.Lastname};
 ```
 
 **Use model classes**
