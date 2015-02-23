@@ -2,8 +2,9 @@ package com.novoda.sqlite;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static com.novoda.sqlite.StringUtil.*;
+import static org.junit.Assert.assertEquals;
+import static com.novoda.sqlite.StringUtil.camelify;
+import static com.novoda.sqlite.StringUtil.asCamelifyGetMethod;
 
 public class StringUtilTest {
 
