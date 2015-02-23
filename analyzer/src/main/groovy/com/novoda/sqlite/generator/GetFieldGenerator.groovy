@@ -7,8 +7,8 @@ class GetFieldGenerator {
 
     private static final String TEMPLATE = '''\
 /**
-* derived from sqlite row: name=$rowName affinity=$affinity
-*/
+ * Generated from the sqlite column named $rowName with an affinity of $affinity.
+ */
 public $returnType $prefix$methodName() {
     return $variableName;
 }
