@@ -42,9 +42,34 @@ sqliteAccess {
 
 ## Simple usage
 
-Try `./gradlew clean assembleDebug` and observe the generated code under `build/source/sqlite/debug/`.
+Try `./gradlew clean assembleDebug` and observe the generated code under `build/generated/source/sqlite/debug/`.
+
+It contains one single class `DB` that provides access to column names of all tables and that provides model classes for all tables.
+
 The project provides 3 demo applications that create and use database access code, using SqliteProvider, android-asset-helper and Google Auto resp.
 
+**Use column names**
+````
+    queryBuilder.appendWhere(DB.Columns.Shop.Name + " like 'A%'")
+```
+
+Simplified use with static import 
+```
+    projection = new String[] {Employees.Firstname, Employees.Lastname};
+```
+
+**Use model classes**
+````
+public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+    DB.Shop shop = DB.Shop.fromCursor(cursor);
+}
+```
+
+**Use helpers for ContentValues**
+````
+   ContentValues values = new ContentValues(1);
+   DB.Shop.setName("New Shop", values);
+```
 
 ## Links
 
