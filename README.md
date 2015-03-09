@@ -23,7 +23,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.novoda:sqlite-analyzer:0.0.1-beta'
+        classpath 'com.novoda:sqlite-analyzer:0.2.0'
     }
 }
 ```
