@@ -22,6 +22,7 @@ abstract class BaseGenerateCode extends DefaultTask {
     String packageName = "com.novoda.database"
 
     boolean generateAuto = false
+    boolean generateOpenHelper = true
 
     @TaskAction
     void generate() {
@@ -49,6 +50,11 @@ abstract class BaseGenerateCode extends DefaultTask {
         dBPrinter.print()
         if (generateAuto)
             new AutoPrinter(database, outputDir).print()
+        if (generateOpenHelper) {
+            def openHelperPrinter = new OpenHelperPrinter(database, outputDir)
+            openHelperPrinter.packageName = packageName
+            openHelperPrinter.print()
+        }
     }
 
     private File makeFileDir() {
