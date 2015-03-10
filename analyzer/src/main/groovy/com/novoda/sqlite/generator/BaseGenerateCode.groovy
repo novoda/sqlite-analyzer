@@ -51,9 +51,13 @@ abstract class BaseGenerateCode extends DefaultTask {
         if (generateAuto)
             new AutoPrinter(database, outputDir).print()
         if (generateOpenHelper) {
-            def openHelperPrinter = new OpenHelperPrinter(database, outputDir)
+            def openHelperPrinter = new OpenHelperPrinter(outputDir)
             openHelperPrinter.packageName = packageName
             openHelperPrinter.print()
+
+            def migrationsPrinter = new MigrationsPrinter(outputDir)
+            migrationsPrinter.packageName = packageName
+            migrationsPrinter.print()
         }
     }
 

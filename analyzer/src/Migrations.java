@@ -1,4 +1,4 @@
-package com.novoda.lib.sqliteprovider.util;
+package $packageName;
 
 import android.content.res.AssetManager;
 import android.database.SQLException;

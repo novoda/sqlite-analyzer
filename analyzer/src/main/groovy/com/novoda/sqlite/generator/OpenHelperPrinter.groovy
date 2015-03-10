@@ -53,12 +53,10 @@ public final class DBOpenHelper extends SQLiteOpenHelper {
 }
 '''
     String packageName
-    private final Database database
     private final File targetDir
 
-    OpenHelperPrinter(Database database, File targetDir) {
+    OpenHelperPrinter(File targetDir) {
         this.targetDir = targetDir
-        this.database = database
     }
 
     public void print() throws IOException {
@@ -67,11 +65,9 @@ public final class DBOpenHelper extends SQLiteOpenHelper {
     }
 
     private String emitClass(def printers) {
-        use(TableJavaCategory, ColumnJavaCategory, ColumnAndroidCategory) {
             new GStringTemplateEngine().createTemplate(TEMPLATE)
                     .make(packageName: packageName)
                     .toString()
-        }
     }
 
     private File makeFileDir() {
