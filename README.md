@@ -1,4 +1,4 @@
-# sqlite-analyzer [![](http://ci.novoda.com/buildStatus/icon?job=sqlite-analyzer)](http://ci.novoda.com/job/sqlite-analyzer/lastBuild/console) [![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE.txt)
+# sqlite-analyzer [![](https://ci.novoda.com/buildStatus/icon?job=sqlite-analyzer)](https://ci.novoda.com/job/sqlite-analyzer/lastBuild/console) [![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE.txt)
 
 Code generation for Java/Android database access.
 
