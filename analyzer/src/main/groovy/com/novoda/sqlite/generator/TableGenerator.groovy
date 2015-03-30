@@ -21,7 +21,10 @@ public static class $className {
     String print() {
         def generators = []
         if (!onlyStatic) {
-            generators << new GetTableFromCursorGenerator(table) << new TableVariablesGenerator(table) << new TableConstructorGenerator(table)
+            generators << new GetTableFromCursorGenerator(table)
+            generators << new GetContentValuesFromTableGenerator(table)
+            generators << new TableVariablesGenerator(table)
+            generators << new TableConstructorGenerator(table)
         }
         table.columns.each { column ->
             if (!onlyStatic) {
