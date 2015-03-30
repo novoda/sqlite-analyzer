@@ -11,16 +11,22 @@ public static class $className {
 }
 '''
     private final Table table
+    private final boolean onlyStatic
 
-    public TableGenerator(Table table) {
+    public TableGenerator(Table table, boolean onlyStatic) {
         this.table = table
+        this.onlyStatic = onlyStatic
     }
 
     String print() {
         def generators = []
-        generators << new GetTableFromCursorGenerator(table) << new TableVariablesGenerator(table) << new TableConstructorGenerator(table)
+        if (!onlyStatic) {
+            generators << new GetTableFromCursorGenerator(table) << new TableVariablesGenerator(table) << new TableConstructorGenerator(table)
+        }
         table.columns.each { column ->
-            generators << new GetFieldGenerator(column)
+            if (!onlyStatic) {
+                generators << new GetFieldGenerator(column)
+            }
             generators << new GetColumnFromCursorGenerator(column)
             generators << new SetColumnToContentValueGenerator(column)
         }

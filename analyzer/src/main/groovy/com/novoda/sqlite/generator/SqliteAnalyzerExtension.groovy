@@ -7,6 +7,7 @@ class SqliteAnalyzerExtension {
     String packageName
     String databaseFile
     boolean generateAuto
+    boolean onlyStatic
 
     SqliteAnalyzerExtension(Project project) {
     }

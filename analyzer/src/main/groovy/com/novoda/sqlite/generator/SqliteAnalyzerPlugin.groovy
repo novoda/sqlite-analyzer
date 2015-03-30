@@ -15,6 +15,7 @@ class SqliteAnalyzerPlugin implements Plugin<Project> {
                         outputDir sourceFolder
                         packageName extension.packageName
                         generateAuto extension.generateAuto
+                        onlyStatic extension.onlyStatic
                     }
                     variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
                 }
@@ -27,6 +28,7 @@ class SqliteAnalyzerPlugin implements Plugin<Project> {
                         outputDir sourceFolder
                         packageName extension.packageName
                         generateAuto extension.generateAuto
+                        onlyStatic extension.onlyStatic
                     }
                     variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
                 }

@@ -22,6 +22,7 @@ abstract class BaseGenerateCode extends DefaultTask {
     String packageName = "com.novoda.database"
 
     boolean generateAuto = false
+    boolean onlyStatic = false
 
     @TaskAction
     void generate() {
@@ -44,7 +45,7 @@ abstract class BaseGenerateCode extends DefaultTask {
         dBPrinter.targetDir = makeFileDir().absolutePath
         dBPrinter.printers = [new ColumnsGenerator(database), new TableNamesGenerator(database)]
         database.getTables().each { table ->
-            dBPrinter.printers << new TableGenerator(table)
+            dBPrinter.printers << new TableGenerator(table, onlyStatic)
         }
         dBPrinter.print()
         if (generateAuto)
