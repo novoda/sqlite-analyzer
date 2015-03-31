@@ -1,6 +1,7 @@
 package com.novoda.sqlite.generator
 
 import com.novoda.sqlite.Analyzer
+import com.novoda.sqlite.generator.model.Access
 import com.novoda.sqlite.model.Database
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
@@ -45,23 +46,13 @@ abstract class BaseGenerateCode extends DefaultTask {
     protected abstract Connection createConnection()
 
     private void generateCode(Database database) {
-        def printer = new DBPrinter()
-        printer.packageName = packageName
-        printer.targetDir = makeFileDir().absolutePath
-        printer.printers = [new ColumnsGenerator(database), new TableNamesGenerator(database)]
-        database.getTables().each { table ->
-            printer.printers << new TableGenerator(table, onlyStatic)
-        }
+        NewDBPrinter printer = [access: Access.from(database),
+                                baseDir: outputDir,
+                                packageName: packageName,
+                                className: "DB"]
         printer.print()
         if (generateAuto)
             new AutoPrinter(database, outputDir).print()
-    }
-
-    private File makeFileDir() {
-        String packageAsDir = packageName.replaceAll(~/\./, "/")
-        def fileDir = new File(outputDir, packageAsDir)
-        fileDir.mkdirs()
-        return fileDir
     }
 }
 
