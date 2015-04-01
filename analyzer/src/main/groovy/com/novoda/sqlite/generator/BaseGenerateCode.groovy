@@ -46,13 +46,11 @@ abstract class BaseGenerateCode extends DefaultTask {
     protected abstract Connection createConnection()
 
     private void generateCode(Database database) {
-        NewDBPrinter printer = [access: Access.from(database),
+        ClassEmitter printer = [access: Access.from(database),
                                 baseDir: outputDir,
                                 packageName: packageName,
                                 className: "DB"]
         printer.print()
-        if (generateAuto)
-            new AutoPrinter(database, outputDir).print()
     }
 }
 

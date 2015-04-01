@@ -2,7 +2,7 @@ package com.novoda.sqlite.generator
 import com.novoda.sqlite.generator.model.Access
 import groovy.text.GStringTemplateEngine
 
-class NewDBPrinter {
+class ClassEmitter {
 
     Access access
     File baseDir
