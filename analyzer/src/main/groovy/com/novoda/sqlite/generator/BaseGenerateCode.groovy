@@ -25,9 +25,6 @@ abstract class BaseGenerateCode extends DefaultTask {
     String packageName = "com.novoda.database"
 
     @Input
-    boolean generateAuto = false
-
-    @Input
     boolean onlyStatic = false
 
     @TaskAction
@@ -46,11 +43,16 @@ abstract class BaseGenerateCode extends DefaultTask {
     protected abstract Connection createConnection()
 
     private void generateCode(Database database) {
-        ClassEmitter printer = [access: Access.from(database),
-                                baseDir: outputDir,
-                                packageName: packageName,
-                                className: "DB"]
+        ClassEmitter printer = [template    : chooseTemplate(),
+                                templateData: Access.from(database),
+                                baseDir     : outputDir,
+                                packageName : packageName,
+                                className   : "DB"]
         printer.print()
+    }
+
+    private String chooseTemplate() {
+        onlyStatic ? Templates.ONLY_STATIC_ACCESS : Templates.FULL_ACCESS
     }
 }
 
