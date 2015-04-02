@@ -15,12 +15,10 @@ class ClassEmitter {
     public void print() {
         def targetDir = makeFileDir()
         new FileWriter("${targetDir}/${className}.java").withWriter { Writer writer ->
-            template(template).make(access: templateData, packageName: packageName, className: className).writeTo(writer)
+            engine.createTemplate(template)
+                    .make(access: templateData, packageName: packageName, className: className)
+                    .writeTo(writer)
         }
-    }
-
-    private template(def text) {
-        engine.createTemplate(text)
     }
 
     private String makeFileDir() {
@@ -29,6 +27,4 @@ class ClassEmitter {
         fileDir.mkdirs()
         return fileDir.absolutePath
     }
-
-
 }
