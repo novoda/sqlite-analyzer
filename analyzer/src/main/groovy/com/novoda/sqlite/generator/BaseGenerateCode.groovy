@@ -21,12 +21,12 @@ abstract class BaseGenerateCode extends DefaultTask {
     @Input
     String packageName
 
-    Closure classPrinting
+    Closure classGeneration
 
     @TaskAction
     void generate() {
         Database database = analyzeDb()
-        classPrinting(database, outputDir)
+        classGeneration(database, outputDir)
     }
 
     private Database analyzeDb() {

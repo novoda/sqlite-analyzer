@@ -15,7 +15,7 @@ class SqliteAnalyzerPlugin implements Plugin<Project> {
                         migrationsDir project.file(extension.migrationsDir)
                         outputDir sourceFolder
                         packageName extension.packageName
-                        classPrinting extension.printer
+                        classGeneration extension.generator
                     }
                     variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
                 }
@@ -27,7 +27,7 @@ class SqliteAnalyzerPlugin implements Plugin<Project> {
                         databaseFile project.file(extension.databaseFile)
                         outputDir sourceFolder
                         packageName extension.packageName
-                        classPrinting extension.printer
+                        classGeneration extension.generator
                     }
                     variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
                 }

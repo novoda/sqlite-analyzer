@@ -9,7 +9,7 @@ class SqliteAnalyzerExtension {
     String packageName
     String databaseFile
     String className = "DB"
-    Closure printer = fullAccessPrinter()
+    Closure generator = fullAccessGenerator()
 
     SqliteAnalyzerExtension(Project project) {
     }
@@ -18,28 +18,28 @@ class SqliteAnalyzerExtension {
         return Access.from(database)
     }
 
-    static void printClass(def template, def templateData, String className, String packageName, File baseDir) {
-        ClassEmitter printer = [template    : template,
+    static void generateClass(def template, def templateData, String className, String packageName, File baseDir) {
+        ClassEmitter emitter = [template    : template,
                                 templateData: templateData,
                                 baseDir     : baseDir,
                                 packageName : packageName,
                                 className   : className]
-        printer.print()
+        emitter.print()
     }
 
-    void printStaticAccess(Database database, File baseDir) {
-        printClass(Templates.ONLY_STATIC_ACCESS, access(database), className, packageName, baseDir)
+    void generateStaticAccess(Database database, File baseDir) {
+        generateClass(Templates.ONLY_STATIC_ACCESS, access(database), className, packageName, baseDir)
     }
 
-    void printFullAccess(Database database, File baseDir) {
-        printClass(Templates.FULL_ACCESS, access(database), className, packageName, baseDir)
+    void generateFullAccess(Database database, File baseDir) {
+        generateClass(Templates.FULL_ACCESS, access(database), className, packageName, baseDir)
     }
 
-    Closure staticAccessPrinter() {
-        return this.&printStaticAccess
+    Closure staticAccessGenerator() {
+        return this.&generateStaticAccess
     }
 
-    Closure fullAccessPrinter() {
-        return this.&printFullAccess
+    Closure fullAccessGenerator() {
+        return this.&generateFullAccess
     }
 }
