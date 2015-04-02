@@ -9,7 +9,7 @@ class SqliteAnalyzerExtension {
     String packageName
     String databaseFile
     String className = "DB"
-    Closure emitter = fullEmitter()
+    Closure printer = fullAccessPrinter()
 
     SqliteAnalyzerExtension(Project project) {
     }
@@ -35,11 +35,11 @@ class SqliteAnalyzerExtension {
         printClass(Templates.FULL_ACCESS, access(database), className, packageName, baseDir)
     }
 
-    Closure staticEmitter() {
+    Closure staticAccessPrinter() {
         return this.&printStaticAccess
     }
 
-    Closure fullEmitter() {
+    Closure fullAccessPrinter() {
         return this.&printFullAccess
     }
 }
