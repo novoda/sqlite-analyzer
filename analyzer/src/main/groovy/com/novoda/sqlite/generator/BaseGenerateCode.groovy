@@ -1,7 +1,5 @@
 package com.novoda.sqlite.generator
-
 import com.novoda.sqlite.Analyzer
-import com.novoda.sqlite.generator.model.Access
 import com.novoda.sqlite.model.Database
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
@@ -9,7 +7,6 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
 import java.sql.Connection
-
 /**
  * This task runs the SqliteAnalyzer to generate code to describe the database tables and columns.
  *
@@ -22,15 +19,14 @@ abstract class BaseGenerateCode extends DefaultTask {
     File outputDir
 
     @Input
-    String packageName = "com.novoda.database"
+    String packageName
 
-    @Input
-    boolean onlyStatic = false
+    Closure classEmitter
 
     @TaskAction
     void generate() {
         Database database = analyzeDb()
-        generateCode(database)
+        classEmitter(database, outputDir)
     }
 
     private Database analyzeDb() {
@@ -42,17 +38,5 @@ abstract class BaseGenerateCode extends DefaultTask {
 
     protected abstract Connection createConnection()
 
-    private void generateCode(Database database) {
-        ClassEmitter printer = [template    : chooseTemplate(),
-                                templateData: Access.from(database),
-                                baseDir     : outputDir,
-                                packageName : packageName,
-                                className   : "DB"]
-        printer.print()
-    }
-
-    private String chooseTemplate() {
-        onlyStatic ? Templates.ONLY_STATIC_ACCESS : Templates.FULL_ACCESS
-    }
 }
 

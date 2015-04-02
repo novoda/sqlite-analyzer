@@ -25,7 +25,6 @@ dependencies {
 sqliteAccess {
     databaseFile 'src/main/assets/databases/northwind.db'
     packageName 'com.example.sqlite'
-    generateAuto true
 }
 
 apply from: "$rootDir/team-props/lint.gradle"

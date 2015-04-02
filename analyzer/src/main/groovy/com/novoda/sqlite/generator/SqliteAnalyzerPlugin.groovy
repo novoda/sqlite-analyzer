@@ -1,4 +1,5 @@
 package com.novoda.sqlite.generator
+
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -14,7 +15,7 @@ class SqliteAnalyzerPlugin implements Plugin<Project> {
                         migrationsDir project.file(extension.migrationsDir)
                         outputDir sourceFolder
                         packageName extension.packageName
-                        onlyStatic extension.onlyStatic
+                        classEmitter extension.emitter
                     }
                     variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
                 }
@@ -26,7 +27,7 @@ class SqliteAnalyzerPlugin implements Plugin<Project> {
                         databaseFile project.file(extension.databaseFile)
                         outputDir sourceFolder
                         packageName extension.packageName
-                        onlyStatic extension.onlyStatic
+                        classEmitter extension.emitter
                     }
                     variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
                 }
