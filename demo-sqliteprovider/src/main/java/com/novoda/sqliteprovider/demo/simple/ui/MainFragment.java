@@ -59,9 +59,8 @@ public class MainFragment extends Fragment {
                         }
 
                         do {
-                            DB.Shop shop = DB.Shop.fromCursor(cursor);
-                            Log.d("demo", "Found shop: " + shop.getName());
-                            Log.d("demo", "Found postcode: " + shop.getPostcode());
+                            Log.d("demo", "Found shop: " + DB.Shop.getName(cursor));
+                            Log.d("demo", "Found postcode: " + DB.Shop.getPostcode(cursor));
                         } while (cursor.moveToNext());
 
                     }

@@ -1,13 +1,12 @@
 package com.novoda.sqlite.generator
-
 import com.novoda.sqlite.Analyzer
 import com.novoda.sqlite.model.Database
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
 import java.sql.Connection
-
 /**
  * This task runs the SqliteAnalyzer to generate code to describe the database tables and columns.
  *
@@ -19,14 +18,15 @@ abstract class BaseGenerateCode extends DefaultTask {
     @OutputDirectory
     File outputDir
 
-    String packageName = "com.novoda.database"
+    @Input
+    String packageName
 
-    boolean generateAuto = false
+    Closure classGeneration
 
     @TaskAction
     void generate() {
         Database database = analyzeDb()
-        generateCode(database)
+        classGeneration(database, outputDir)
     }
 
     private Database analyzeDb() {
@@ -38,24 +38,5 @@ abstract class BaseGenerateCode extends DefaultTask {
 
     protected abstract Connection createConnection()
 
-    private void generateCode(Database database) {
-        def dBPrinter = new DBPrinter()
-        dBPrinter.packageName = packageName
-        dBPrinter.targetDir = makeFileDir().absolutePath
-        dBPrinter.printers = [new ColumnsGenerator(database), new TableNamesGenerator(database)]
-        database.getTables().each { table ->
-            dBPrinter.printers << new TableGenerator(table)
-        }
-        dBPrinter.print()
-        if (generateAuto)
-            new AutoPrinter(database, outputDir).print()
-    }
-
-    private File makeFileDir() {
-        String packageAsDir = packageName.replaceAll(~/\./, "/")
-        def fileDir = new File(outputDir, packageAsDir)
-        fileDir.mkdirs()
-        return fileDir
-    }
 }
 

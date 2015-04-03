@@ -22,4 +22,5 @@ dependencies {
 sqliteAccess {
     migrationsDir 'src/main/assets/migrations'
     packageName 'com.novoda.sqliteprovider.demo.simple'
+    generator staticAccessGenerator()
 }
