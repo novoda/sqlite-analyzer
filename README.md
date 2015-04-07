@@ -1,21 +1,23 @@
-# sqlite-analyzer [![](https://ci.novoda.com/buildStatus/icon?job=sqlite-analyzer)](https://ci.novoda.com/job/sqlite-analyzer/lastBuild/console) [![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE.txt)
+# sqlite-analyzer [![](https://ci.novoda.com/buildStatus/icon?job=sqlite-analyzer)](https://ci.novoda.com/job/sqlite-analyzer/lastBuild/console)
+[![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE.txt)
 
 Code generation for Java/Android database access.
 
 ## Description
 
-Generates java/android database access code by analysing sqlite migration files or sqlite databases, keeping full control of what code is generated.
+Generates java/android database access code by analysing sqlite migration files or sqlite databases,
+keeping full control of what code is generated.
 
-sqlite-analyzer creates an in-memory sqlite database, either from a given database file or by running sql migrations, and analyzes its tables to construct a DatabaseModel. This model is then used to generate code.
+sqlite-analyzer creates an in-memory sqlite database, either from a given database file or by reading sql migrations,
+and analyzes its tables to construct a DatabaseModel. This model is then used to generate database access code.
 
-This project uses [sqlite-jdbc](https://bitbucket.org/xerial/sqlite-jdbc) to create and analyze the database. [Groovy](http://groovy.codehaus.org/) is used to generate code, [Gradle](http://www.gradle.org/) to hook the functionality into the [android build system](http://tools.android.com/tech-docs/new-build-system).
+This project uses [sqlite-jdbc](https://bitbucket.org/xerial/sqlite-jdbc) to create and analyze the database.
+[Groovy](http://groovy.codehaus.org/) is used to generate code, [Gradle](http://www.gradle.org/) to hook
+the functionality into the [android build system](http://tools.android.com/tech-docs/new-build-system).
 
 ## Adding to your project
 
-To integrate sqliteAnalyzer into your project, it is recommended for now that you depend directly on the sources. See the setup under the
-`buildSrc` sub-directory for an example.
-
-If you prefer you can use it from jcenter directly, just add these lines to the build.gradle of your project:
+To integrate sqlite-analyzer into your project, add the following at the beginning of the `build.gradle` of your project:
 
 ```groovy
 buildscript {
@@ -28,7 +30,7 @@ buildscript {
 }
 ```
 
-After you've added the sources to `buildSrc` or added the buildscript dependency, you can start using this library, add these lines to the `build.gradle` of your project:
+To use the library with [sqlite-provider](https://github.com/novoda/sqlite-provider), add these lines to the `build.gradle` of your project:
 
 ```groovy
 apply plugin: 'sqlite-analyzer'
@@ -39,14 +41,19 @@ sqliteAccess {
 }
 ```
 
+See the sample projects for setup with [android-sqlite-asset-helper](https://github.com/jgilfelt/android-sqlite-asset-helper).
+
 
 ## Simple usage
 
 Try `./gradlew clean assembleDebug` and observe the generated code under `build/generated/source/sqlite/debug/`.
 
-It contains one single class `DB` that provides access to column names of all tables and that provides model classes for all tables.
+By default, it contains one single class `DB` that defines constants for the names of the tables and columns and
+introduces static accessor methods as well as model classes for all tables data.
 
-The project provides 3 demo applications that create and use database access code, using SqliteProvider, android-asset-helper and Google Auto resp.
+The project comes with 2 demo applications that create and use database access code,
+one uses [sqlite-provider](https://github.com/novoda/sqlite-provider),
+the other uses [android-sqlite-asset-helper](https://github.com/jgilfelt/android-sqlite-asset-helper).
 
 **Use column names**
 ````
