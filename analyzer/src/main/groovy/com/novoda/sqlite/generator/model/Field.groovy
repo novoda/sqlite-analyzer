@@ -1,10 +1,9 @@
 package com.novoda.sqlite.generator.model
-
 import com.novoda.sqlite.model.Column
 import com.novoda.sqlite.model.DataAffinity
-import groovy.transform.Immutable
+import groovy.transform.CompileStatic
 
-@Immutable
+@CompileStatic
 final class Field {
     String name
     String accessor
@@ -16,14 +15,14 @@ final class Field {
     String cursorType
 
     static Field fromColumn(Column column) {
-        return [name      : column.camelizedSmallName,
-                accessor  : column.camelizedName,
-                sqlName   : column.name,
-                getMethod : getGetterPrefix(column) + column.camelizedName,
-                setMethod : 'set' + column.camelizedName,
-                type      : getDataType(column),
-                optional  : column.nullable,
-                cursorType: getCursorAccessor(column)]
+        [name      : column.camelizedSmallName,
+         accessor  : column.camelizedName,
+         sqlName   : column.name,
+         getMethod : getGetterPrefix(column) + column.camelizedName,
+         setMethod : 'set' + column.camelizedName,
+         type      : getDataType(column),
+         optional  : column.nullable,
+         cursorType: getCursorAccessor(column)] as Field
     }
 
     private static String getDataType(Column column) {
