@@ -22,5 +22,14 @@ dependencies {
 sqliteAccess {
     migrationsDir 'src/main/assets/migrations'
     packageName 'com.novoda.sqliteprovider.demo.simple'
-    generator staticAccessGenerator()
+    generator { database, basedir ->
+        def access = access(database)
+        access.tables.each { table ->
+            table.fields.each { field ->
+                if (field.type == 'Integer') {field.type = 'Long'; field.cursorType = 'Long'}
+                if (field.type == 'int') {field.type = 'long'; field.cursorType = 'Long'}
+            }
+        }
+        generateClass(file('code.template'), access, "DB", packageName, basedir)
+    }
 }
