@@ -10,7 +10,7 @@ class SqliteAnalyzerPlugin implements Plugin<Project> {
         project.afterEvaluate {
             project.android.applicationVariants.all { variant ->
                 File sourceFolder = project.file("${project.buildDir}/generated/source/sqlite/${variant.dirName}")
-                def javaGenerationTask = project.tasks.create(name: "generate${variant.name.capitalize()}SqliteAccess", type: BaseGenerateCode) {
+                def javaGenerationTask = project.tasks.create(name: "generate${variant.name.capitalize()}SqliteAccess", type: GenerateDBAccess) {
                     dbConnection extension.dbConnector
                     outputDir sourceFolder
                     packageName extension.packageName

@@ -14,8 +14,8 @@ class SqliteAnalyzerExtension {
     String packageName
     String databaseFile
     String className = "DB"
-    Closure generator = fullAccessGenerator()
-    Closure dbConnector = dbConnector()
+    Closure<Void> generator = fullAccessGenerator()
+    Closure<Connection> dbConnector = dbConnector()
 
     private final Project project
 
@@ -44,10 +44,6 @@ class SqliteAnalyzerExtension {
         generateClass(Templates.FULL_ACCESS, access(database), className, packageName, baseDir)
     }
 
-    Closure dbConnector() {
-        return this.&createConnection
-    }
-
     Connection createConnection() {
         if (migrationsDir) {
             def migrations = new MigrationsInDir(project.file(migrationsDir))
@@ -66,4 +62,7 @@ class SqliteAnalyzerExtension {
         return this.&generateFullAccess
     }
 
+    Closure dbConnector() {
+        return this.&createConnection
+    }
 }
