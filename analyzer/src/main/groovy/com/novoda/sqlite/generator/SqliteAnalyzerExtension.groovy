@@ -1,8 +1,13 @@
 package com.novoda.sqlite.generator
 
+import com.novoda.sqlite.FileConnector
+import com.novoda.sqlite.MigrationsConnector
+import com.novoda.sqlite.MigrationsInDir
 import com.novoda.sqlite.generator.model.Access
 import com.novoda.sqlite.model.Database
 import org.gradle.api.Project
+
+import java.sql.Connection
 
 class SqliteAnalyzerExtension {
     String migrationsDir
@@ -10,8 +15,12 @@ class SqliteAnalyzerExtension {
     String databaseFile
     String className = "DB"
     Closure generator = fullAccessGenerator()
+    Closure dbConnector = dbConnector()
+
+    private final Project project
 
     SqliteAnalyzerExtension(Project project) {
+        this.project = project
     }
 
     Access access(Database database) {
@@ -35,6 +44,20 @@ class SqliteAnalyzerExtension {
         generateClass(Templates.FULL_ACCESS, access(database), className, packageName, baseDir)
     }
 
+    Closure dbConnector() {
+        return this.&createConnection
+    }
+
+    Connection createConnection() {
+        if (migrationsDir) {
+            def migrations = new MigrationsInDir(project.file(migrationsDir))
+            return new MigrationsConnector(migrations).connect()
+        }
+        if (databaseFile) {
+            return new FileConnector(project.file(databaseFile)).connect()
+        }
+    }
+
     Closure staticAccessGenerator() {
         return this.&generateStaticAccess
     }
@@ -42,4 +65,5 @@ class SqliteAnalyzerExtension {
     Closure fullAccessGenerator() {
         return this.&generateFullAccess
     }
+
 }
