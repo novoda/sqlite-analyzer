@@ -63,6 +63,13 @@ public static final class $dataSet.name {
         return $field.name;
     }
 <% } %>\
+    public android.content.ContentValues toContentValues() {
+        android.content.ContentValues values = new android.content.ContentValues();
+<% dataSet.fields.each { field -> %>\
+        $field.setMethod($field.name, values);
+<% } %>\
+        return values;
+    }
 }
 <% } %>\
 }
