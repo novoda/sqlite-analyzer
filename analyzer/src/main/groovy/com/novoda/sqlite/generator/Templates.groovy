@@ -39,6 +39,18 @@ public static final class $dataSet.name {
     }
 <% } %>\
 
+    public static $dataSet.name fromCursor(android.database.Cursor cursor) {
+<% dataSet.fields.each { field -> %>\
+        $field.type $field.name = $field.getMethod(cursor);
+<% } %>
+    return new $dataSet.name(\
+<% dataSet.fields.eachWithIndex { field, index ->
+    out << field.name
+    if (index < dataSet.fields.size()-1)
+      out << ", "
+} %>);
+    }
+
 <% dataSet.fields.each { field -> %>\
     private final $field.type $field.name;
 <% } %>\
