@@ -1,17 +1,16 @@
 package com.novoda.sqlite.generator.model
-
 import com.novoda.sqlite.model.Column
 import com.novoda.sqlite.model.Table
-import groovy.transform.Immutable
+import groovy.transform.CompileStatic
 
-@Immutable
+@CompileStatic
 class DataSet {
     String sqlName
     String name
     Collection<Field> fields
 
     static DataSet fromTable(Table table) {
-        return [sqlName: table.name, name: table.camelizedName, fields: columnsToFields(table.columns)]
+        [sqlName: table.name, name: table.camelizedName, fields: columnsToFields(table.columns)] as DataSet
     }
 
     private static Collection<Field> columnsToFields(Collection<Column> columns) {
