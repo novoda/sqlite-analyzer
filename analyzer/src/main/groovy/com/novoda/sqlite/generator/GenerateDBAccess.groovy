@@ -13,7 +13,7 @@ import java.sql.Connection
  * We use input and output directory annotations to ensure the task is run on any changes in the migrations directory
  * or when the output is removed.
  */
-abstract class BaseGenerateCode extends DefaultTask {
+class GenerateDBAccess extends DefaultTask {
 
     @OutputDirectory
     File outputDir
@@ -21,7 +21,9 @@ abstract class BaseGenerateCode extends DefaultTask {
     @Input
     String packageName
 
-    Closure classGeneration
+    Closure<Void> classGeneration
+
+    Closure<Connection> dbConnection
 
     @TaskAction
     void generate() {
@@ -30,13 +32,11 @@ abstract class BaseGenerateCode extends DefaultTask {
     }
 
     private Database analyzeDb() {
-        Connection connection = createConnection()
+        Connection connection = dbConnection()
         def database = new Analyzer(connection).analyze()
         connection.close()
         database
     }
-
-    protected abstract Connection createConnection()
 
 }
 

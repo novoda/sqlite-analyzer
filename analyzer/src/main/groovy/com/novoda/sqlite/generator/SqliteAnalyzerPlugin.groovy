@@ -8,31 +8,18 @@ class SqliteAnalyzerPlugin implements Plugin<Project> {
         ensurePluginDependencies(project)
         def extension = project.extensions.create('sqliteAccess', SqliteAnalyzerExtension, project)
         project.afterEvaluate {
-            if (extension.migrationsDir) {
-                project.android.applicationVariants.all { variant ->
-                    File sourceFolder = project.file("${project.buildDir}/generated/source/sqlite/${variant.dirName}")
-                    def javaGenerationTask = project.tasks.create(name: "generate${variant.name.capitalize()}SqliteAccessFromMigrations", type: GenerateCodeFromMigrations) {
-                        migrationsDir project.file(extension.migrationsDir)
-                        outputDir sourceFolder
-                        packageName extension.packageName
-                        classGeneration extension.generator
-                    }
-                    variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
+            project.android.applicationVariants.all { variant ->
+                File sourceFolder = project.file("${project.buildDir}/generated/source/sqlite/${variant.dirName}")
+                def javaGenerationTask = project.tasks.create(name: "generate${variant.name.capitalize()}SqliteAccess", type: GenerateDBAccess) {
+                    dbConnection extension.dbConnector
+                    outputDir sourceFolder
+                    packageName extension.packageName
+                    classGeneration extension.generator
                 }
-            }
-            if (extension.databaseFile) {
-                project.android.applicationVariants.all { variant ->
-                    File sourceFolder = project.file("${project.buildDir}/generated/source/sqlite/${variant.dirName}")
-                    def javaGenerationTask = project.tasks.create(name: "generate${variant.name.capitalize()}SqliteAccessFromFile", type: GenerateCodeFromFile) {
-                        databaseFile project.file(extension.databaseFile)
-                        outputDir sourceFolder
-                        packageName extension.packageName
-                        classGeneration extension.generator
-                    }
-                    variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
-                }
+                variant.registerJavaGeneratingTask(javaGenerationTask, sourceFolder)
             }
         }
+
     }
 
     private static void ensurePluginDependencies(Project project) {
