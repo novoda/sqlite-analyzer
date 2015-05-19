@@ -193,10 +193,15 @@ header.main-header, footer.main-footer {
 }
 
 header.main-header {
-  color: $base-00;
-  border-top: 5px $base-08 solid;
+  color: $color-1;  
+  background-color: $base-08;
 
-  h1, h2 { text-align: center; color: inherit;}
+  h1, h2 { text-align: left; color: inherit;}
+  h2 {
+    @include MQ(M) {
+        @include font-size(16px);          
+    }
+  }
   a { 
     color: inherit;
     &:hover, &:active, &:focus {
@@ -205,35 +210,23 @@ header.main-header {
   }
 
   ul {
-    width: 100%;
-    text-align: center;
+    text-align: right;
     padding: 15px;
+	position: absolute;
+	top: 15px;
+	right: 15px;
   }
   ul li {       
     display: inline-block;
     position:relative;
-    color: $base-08;
+    color: $color-1;
   }
 
   ul li span {
     float: left;
     display: inline-block;
     width: 15px;
-  }
-
-  ul li a { 
-    display:inline-block;
-    color: inherit;
-    border-bottom: 2px transparent solid;
-    padding-bottom:5px;
-    @include transition(all, .2s);
-    @include MQ(M) {
-      @include font-size(18px);
-    }
-    &:hover, &:focus, &:active {
-      border-bottom-color: inherit;
-    }
-  }
+  } 
 }
 
 footer.main-footer {
@@ -292,7 +285,7 @@ footer.main-footer {
   li > a {
     width: 32px;
     height: 32px;
-    background: $base-07;
+    background: $base-08;
     background-image: url("./images/socials-icons.svg");
     background-size: 224px 64px;
     border-radius: 0.25em;
@@ -543,11 +536,11 @@ Code snippets
 code, pre {
   font-family: Menlo, Monaco, "Courier New", monospace;
 }
-code {  
+.code {  
   padding: .25em .5em;
   font-size: 85%;
-  color: $base-08;
-  background-color: rgba($base-08, .1);
+  white-space: pre;
+  box-shadow:0 1px 2px #aaa;
 }
 pre {
   display: block;
@@ -582,6 +575,25 @@ pre {
   }
 }
 
+div#tocDiv {
+  padding: 10px;
+  position: relative;
+  width: 150px;
+  right: 15px;
+  top: -50px;
+  float: right;  
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px #aaa;
+}
+
+ul#tocList {
+  li {
+    padding: 10px;
+	a {
+	  color: #000000;
+	}
+  }
+}
 /* Gist via GitHub Pages */
 .gist .gist-file {
   font-family: Menlo, Monaco, "Courier New", monospace !important;

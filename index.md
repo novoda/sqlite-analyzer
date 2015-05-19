@@ -17,7 +17,7 @@ the functionality into the [android build system](http://tools.android.com/tech-
 
 To integrate sqlite-analyzer into your project, add the following at the beginning of the `build.gradle` of your project:
 
-```
+``` groovy
 buildscript {
     repositories {
         jcenter()

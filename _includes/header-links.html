@@ -1,10 +1,20 @@
-<ul>
-	{% if site.harmony.social.github %}
+<ul>	
 	<li>
-		<a title="{{ site.project.name }} on Github" 
-			href="https://github.com/{{site.harmony.social.github}}/{{site.project.name}}" target="_blank">
-			See source code
+		<a title="Search" 
+		    class="fa fa-search fa-6"
+			href="{{ site.url }}/search">
+		</a>
+	</li>	
+	<li>
+		<a title="{{ site.project.name }} on Github"
+            class="fa fa-github fa-6"		
+			href="https://github.com/novoda/{{site.project.name}}" target="_blank">		
 		</a>
 	</li>
-	{% endif %}
+    <li>
+		<a title="Novoda" 
+			href="http://novoda.com" target="_blank">
+			<img src="{{site.url }}/assets/img/logo-blue.svg"/>
+		</a>
+	</li>		
 </ul>
