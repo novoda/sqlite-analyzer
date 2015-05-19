@@ -208,24 +208,35 @@ header.main-header {
       border-bottom-color: transparent;
     }
   }
+  
+  table {
+    display: table;
+  }
 
   ul {
     text-align: right;
     padding: 15px;
 	position: absolute;
-	top: 15px;
-	right: 15px;
+	top: -50px;
+	right: -15px;
   }
   ul li {       
-    display: inline-block;
+    display: inline;
     position:relative;
     color: $color-1;
+	line-height: 100px;
   }
-
-  ul li span {
-    float: left;
-    display: inline-block;
-    width: 15px;
+  
+   ul li a {
+    font-size: 30px;
+	height: 100px;
+	margin-left: 15px;
+  } 
+  
+   ul li a img {
+    display: inline;
+	position: relative;
+	top: 30px;
   } 
 }
 
@@ -575,12 +586,11 @@ pre {
   }
 }
 
+/* table of content */
 div#tocDiv {
   padding: 10px;
-  position: relative;
   width: 150px;
-  right: 15px;
-  top: -50px;
+  margin: -30px 15px 15px 15px;
   float: right;  
   background-color: #ffffff;
   box-shadow: 0 1px 2px #aaa;
@@ -594,6 +604,8 @@ ul#tocList {
 	}
   }
 }
+
+
 /* Gist via GitHub Pages */
 .gist .gist-file {
   font-family: Menlo, Monaco, "Courier New", monospace !important;
