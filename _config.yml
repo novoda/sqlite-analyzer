@@ -47,7 +47,7 @@ project:
 # Conversion / Build settings 
 markdown:    kramdown
 # This is how you put pygments config in jekyll 2.0 instead of pygments: true
-highlighter: rouge 
+highlighter: pygments 
 
 # Permalinks
 permalink:        pretty
