@@ -77,12 +77,12 @@ public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
 
 ## Links
 
-[![](https://ci.novoda.com/buildStatus/icon?job={{site.project.name}})](https://ci.novoda.com/job/{{site.project.name}}/lastBuild/console)
-[![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](https://github.com/novoda/{{site.project.name}}/LICENSE.txt)
+[![](https://ci.novoda.com/buildStatus/icon?job={{site.github.repository_name}})](https://ci.novoda.com/job/{{site.github.repository_name}}/lastBuild/console)
+[![](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)]({{site.github.repository_url}}/LICENSE.txt)
 
 Here are a list of useful links:
 
  * We always welcome people to contribute new features or bug fixes, [here is how](https://github.com/novoda/novoda/blob/master/CONTRIBUTING.md)
- * If you have a problem check the [Issues Page](https://github.com/novoda/{{site.project.name}}/issues) first to see if we are working on it
- * For further usage or to delve more deeply checkout the [Project Wiki](https://github.com/novoda/{{site.project.name}}/wiki)
- * Looking for community help, browse the already asked [Stack Overflow Questions](http://stackoverflow.com/questions/tagged/support-{{site.project.name}}) or use the tag: `support-{{site.project.name}}` when posting a new question
+ * If you have a problem check the [Issues Page]({{site.github.issues_url}}) first to see if we are working on it
+ * For further usage or to delve more deeply checkout the [Project Wiki]({{site.github.wiki_url}})
+ * Looking for community help, browse the already asked [Stack Overflow Questions](http://stackoverflow.com/questions/tagged/support-{{site.github.repository_name}}) or use the tag: `support-{{site.github.repository_name}}` when posting a new question
