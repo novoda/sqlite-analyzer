@@ -30,7 +30,7 @@ buildscript {
 
 To use the library with [sqlite-provider](https://github.com/novoda/sqlite-provider), add these lines to the `build.gradle` of your project:
 
-```
+``` groovy
 apply plugin: 'sqlite-analyzer'
 sqliteAccess {
     migrationsDir 'src/main/assets/migrations'
@@ -54,19 +54,19 @@ the other uses [android-sqlite-asset-helper](https://github.com/jgilfelt/android
 
 **Use column names**
 
-```
+``` java
     queryBuilder.appendWhere(DB.Columns.Shop.Name + " like 'A%'")
 ```
 
 Simplified use with static import
  
-```
+``` java
     projection = new String[] {Employees.Firstname, Employees.Lastname};
 ```
 
 **Use model classes**
 
-```
+``` java
 public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
     DB.Shop shop = DB.Shop.fromCursor(cursor);
 }
@@ -74,7 +74,7 @@ public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
 
 **Use helpers for ContentValues**
 
-```
+``` java
    ContentValues values = new ContentValues(1);
    DB.Shop.setName("New Shop", values);
 ```
@@ -88,5 +88,5 @@ Here are a list of useful links:
 
  * We always welcome people to contribute new features or bug fixes, [here is how](https://github.com/novoda/novoda/blob/master/CONTRIBUTING.md)
  * If you have a problem check the [Issues Page]({{site.github.issues_url}}) first to see if we are working on it
- * For further usage or to delve more deeply checkout the [Project Wiki]({{site.github.wiki_url}})
+[comment:] # (For further usage or to delve more deeply checkout the [Project Wiki]({{site.github.wiki_url}}))
  * Looking for community help, browse the already asked [Stack Overflow Questions](http://stackoverflow.com/questions/tagged/support-{{site.github.repository_name}}) or use the tag: `support-{{site.github.repository_name}}` when posting a new question
