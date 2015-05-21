@@ -11,13 +11,6 @@ url: http://novoda.github.io
 
 # Harmony theme configuration. Please change accordingly.
 harmony:
-  name: $site.github.project_title
-  # Little description about your site
-  description: $site.github.project_tagline
-  # 'meta_description:' Write an awesome description for your new site here.
-  # It will appear in your document head meta (for Google search results) and 
-  # in your feed.xml site description.
-  meta_description: $site.github.project_description
   basetheme: theme-base-02 # pre defined thmes are darken, blue-water, redish.
   author: # Author details
     name: Novoda

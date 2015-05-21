@@ -53,16 +53,19 @@ one uses [sqlite-provider](https://github.com/novoda/sqlite-provider),
 the other uses [android-sqlite-asset-helper](https://github.com/jgilfelt/android-sqlite-asset-helper).
 
 **Use column names**
+
 ```
     queryBuilder.appendWhere(DB.Columns.Shop.Name + " like 'A%'")
 ```
 
-Simplified use with static import 
+Simplified use with static import
+ 
 ```
     projection = new String[] {Employees.Firstname, Employees.Lastname};
 ```
 
 **Use model classes**
+
 ```
 public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
     DB.Shop shop = DB.Shop.fromCursor(cursor);
@@ -70,6 +73,7 @@ public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
 ```
 
 **Use helpers for ContentValues**
+
 ```
    ContentValues values = new ContentValues(1);
    DB.Shop.setName("New Shop", values);
