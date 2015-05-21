@@ -1,7 +1,7 @@
 # Harmony Jekyll theme general configurations 
 
 # Base URL
-baseurl: /sqlite-anaylzer
+baseurl: /sqlite-analyzer
 
 # Site live URL
 url: http://novoda.github.io
