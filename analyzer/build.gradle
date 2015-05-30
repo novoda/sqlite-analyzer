@@ -1,15 +1,20 @@
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath 'com.novoda:bintray-release:0.2.4'
+        classpath 'com.gradle.publish:plugin-publish-plugin:0.9.0'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'bintray-release'
+apply plugin: 'com.gradle.plugin-publish'
 
 repositories {
     mavenCentral()
@@ -37,4 +42,19 @@ publish {
     version = project.version
     description = 'Code generation for Java/Android database access.'
     website = 'https://github.com/novoda/sqlite-analyzer'
+}
+
+pluginBundle {
+    website = 'https://github.com/novoda/sqlite-analyzer'
+    vcsUrl = 'https://github.com/novoda/sqlite-analyzer'
+    description = 'Code generation for Java/Android database access.'
+    tags = ['android', 'java', 'dao', 'code-generation', 'sqlite']
+
+    plugins {
+        sqliteAnalyzerPlugin {
+            id = 'com.novoda.sqlite-analyzer'
+            displayName = 'SQLite Analyzer plugin'
+            version = project.version
+        }
+    }
 }
