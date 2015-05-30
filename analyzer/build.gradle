@@ -54,7 +54,10 @@ pluginBundle {
         sqliteAnalyzerPlugin {
             id = 'com.novoda.sqlite-analyzer'
             displayName = 'SQLite Analyzer plugin'
-            version = project.version
         }
     }
+    
+    mavenCoordinates {
+      artifactId = "sqlite-analyzer"
+  }
 }
