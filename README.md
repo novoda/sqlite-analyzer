@@ -25,7 +25,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.novoda:sqlite-analyzer:0.3.1'
+        classpath 'com.novoda:sqlite-analyzer:0.3.2'
     }
 }
 ```
@@ -33,7 +33,7 @@ buildscript {
 To use the library with [sqlite-provider](https://github.com/novoda/sqlite-provider), add these lines to the `build.gradle` of your project:
 
 ```groovy
-apply plugin: 'sqlite-analyzer'
+apply plugin: 'com.novoda.sqlite-analyzer'
 
 sqliteAccess {
     migrationsDir 'src/main/assets/migrations'
