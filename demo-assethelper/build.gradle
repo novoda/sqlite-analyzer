@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-command'
-apply plugin: 'sqlite-analyzer'
+apply plugin: 'com.novoda.sqlite-analyzer'
 
 android {
     buildToolsVersion BUILD_TOOLS_VERSION
