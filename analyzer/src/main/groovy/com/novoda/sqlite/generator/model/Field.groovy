@@ -20,8 +20,8 @@ final class Field {
         [name      : JavaHelper.javaName(column.name),
          accessor  : JavaHelper.javaAccessor(column.name),
          sqlName   : column.name,
-         getMethod : getGetterPrefix(column) + column.camelizedName,
-         setMethod : 'set' + column.camelizedName,
+         getMethod : getGetterPrefix(column) + JavaHelper.javaAccessor(column.name),
+         setMethod : 'set' + JavaHelper.javaAccessor(column.name),
          type      : getDataType(column),
          optional  : column.nullable,
          cursorType: getCursorAccessor(column)] as Field
