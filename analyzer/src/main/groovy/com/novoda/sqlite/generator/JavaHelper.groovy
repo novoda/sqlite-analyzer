@@ -4,7 +4,9 @@ class JavaHelper {
 
   static String javaName(String name) {
     def accessor = javaAccessor(name)
-    accessor[0].toLowerCase() + accessor[1..-1]
+    if (accessor.size() == 1)
+      return accessor[0].toLowerCase()
+    return accessor[0].toLowerCase() + accessor[1..-1]
   }
 
   static String javaAccessor(String name) {
