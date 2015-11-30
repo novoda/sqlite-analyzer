@@ -1,12 +1,12 @@
 package com.novoda.sqlite;
 
-import java.io.File;
-import java.util.Iterator;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import java.io.File;
+import java.util.Iterator;
 
 public class MigrationsInDirTest {
 
@@ -25,7 +25,6 @@ public class MigrationsInDirTest {
         assertStartsWithNumber(iterator.next(), 2);
         assertStartsWithNumber(iterator.next(), 3);
     }
-
 
     private void assertStartsWithNumber(File file, int number) {
         String name = file.getName();
