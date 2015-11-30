@@ -1,6 +1,6 @@
 package com.novoda.sqlite.generator.model
 
-import com.novoda.sqlite.generator.JavaHelper
+import com.novoda.sqlite.generator.JavaMapper
 import com.novoda.sqlite.model.Column
 import com.novoda.sqlite.model.DataAffinity
 import groovy.transform.CompileStatic
@@ -17,11 +17,11 @@ final class Field {
     String cursorType
 
     static Field fromColumn(Column column) {
-        [name      : JavaHelper.javaName(column.name),
-         accessor  : JavaHelper.javaAccessor(column.name),
+        [name      : JavaMapper.javaName(column.name),
+         accessor  : JavaMapper.javaAccessor(column.name),
          sqlName   : column.name,
-         getMethod : getGetterPrefix(column) + JavaHelper.javaAccessor(column.name),
-         setMethod : 'set' + JavaHelper.javaAccessor(column.name),
+         getMethod : getGetterPrefix(column) + JavaMapper.javaAccessor(column.name),
+         setMethod : 'set' + JavaMapper.javaAccessor(column.name),
          type      : getDataType(column),
          optional  : column.nullable,
          cursorType: getCursorAccessor(column)] as Field

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class JavaHelperTest {
+public class JavaMapperTest {
 
     @Test
     public void should_map_underscores_to_camel_case() {
@@ -57,7 +57,7 @@ public class JavaHelperTest {
     }
 
     private static void assertJava(String source, String accessor, String name) {
-        assertEquals(accessor, JavaHelper.javaAccessor(source));
-        assertEquals(name, JavaHelper.javaName(source));
+        assertEquals(accessor, JavaMapper.javaAccessor(source));
+        assertEquals(name, JavaMapper.javaName(source));
     }
 }

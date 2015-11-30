@@ -4,7 +4,7 @@ import com.novoda.sqlite.model.Column
 import com.novoda.sqlite.model.Table
 import groovy.transform.CompileStatic
 
-import static com.novoda.sqlite.generator.JavaHelper.javaAccessor
+import static com.novoda.sqlite.generator.JavaMapper.javaAccessor
 
 @CompileStatic
 class DataSet {

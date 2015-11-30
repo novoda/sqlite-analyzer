@@ -1,6 +1,6 @@
 package com.novoda.sqlite.generator
 
-class JavaHelper {
+class JavaMapper {
 
   static String javaName(String name) {
     def accessor = javaAccessor(name)
