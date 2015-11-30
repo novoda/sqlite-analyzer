@@ -28,6 +28,6 @@ public class MigrationsInDirTest {
 
     private void assertStartsWithNumber(File file, int number) {
         String name = file.getName();
-        assertTrue(name+ " does not start with "+number, name.startsWith(Integer.toString(number)));
+        assertTrue(name + " does not start with " + number, name.startsWith(Integer.toString(number)));
     }
 }
