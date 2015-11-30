@@ -1,7 +1,5 @@
 package com.novoda.sqlite.model;
 
-import com.novoda.sqlite.StringUtil;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -38,10 +36,6 @@ public final class Table {
 
     public String getName() {
         return name;
-    }
-
-    public String getCamelizedName() {
-        return StringUtil.camelify(name);
     }
 
     public String getSql() {

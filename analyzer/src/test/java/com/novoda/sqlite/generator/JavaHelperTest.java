@@ -10,6 +10,7 @@ public class JavaHelperTest {
     public void should_map_underscores_to_camel_case() {
         assertJava("hello_column", "HelloColumn", "helloColumn");
     }
+
     @Test
     public void should_remove_leading_underscore() {
         assertJava("_column", "Column", "column");
@@ -33,6 +34,26 @@ public class JavaHelperTest {
     @Test
     public void should_map_single_character() {
         assertJava("Ä", "Ä", "ä");
+    }
+
+    @Test
+    public void should_camelize_all_uppercase_underscored_column() {
+        assertJava("COLUMN_ID", "ColumnId", "columnId");
+    }
+
+    @Test
+    public void should_camelize_lower_underscored_column() {
+        assertJava("column_id", "ColumnId", "columnId");
+    }
+
+    @Test
+    public void should_camelize_mixedcase_column() {
+        assertJava("columnID", "Columnid", "columnid");
+    }
+
+    @Test
+    public void should_camelize_all_uppercase_column() {
+        assertJava("COLUMNID", "Columnid", "columnid");
     }
 
     private static void assertJava(String source, String accessor, String name) {
