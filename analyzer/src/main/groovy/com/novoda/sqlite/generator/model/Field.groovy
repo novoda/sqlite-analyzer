@@ -1,7 +1,11 @@
 package com.novoda.sqlite.generator.model
+
 import com.novoda.sqlite.model.Column
 import com.novoda.sqlite.model.DataAffinity
 import groovy.transform.CompileStatic
+
+import static com.novoda.sqlite.generator.JavaMapper.javaAccessor
+import static com.novoda.sqlite.generator.JavaMapper.javaName
 
 @CompileStatic
 final class Field {
@@ -15,11 +19,11 @@ final class Field {
     String cursorType
 
     static Field fromColumn(Column column) {
-        [name      : column.camelizedSmallName,
-         accessor  : column.camelizedName,
+        [name      : javaName(column.name),
+         accessor  : javaAccessor(column.name),
          sqlName   : column.name,
-         getMethod : getGetterPrefix(column) + column.camelizedName,
-         setMethod : 'set' + column.camelizedName,
+         getMethod : getGetterPrefix(column) + javaAccessor(column.name),
+         setMethod : 'set' + javaAccessor(column.name),
          type      : getDataType(column),
          optional  : column.nullable,
          cursorType: getCursorAccessor(column)] as Field

@@ -1,12 +1,12 @@
 package com.novoda.sqlite;
 
-import java.io.File;
-import java.util.Iterator;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import java.io.File;
+import java.util.Iterator;
 
 public class MigrationsInDirTest {
 
@@ -26,9 +26,8 @@ public class MigrationsInDirTest {
         assertStartsWithNumber(iterator.next(), 3);
     }
 
-
     private void assertStartsWithNumber(File file, int number) {
         String name = file.getName();
-        assertTrue(name+ " does not start with "+number, name.startsWith(Integer.toString(number)));
+        assertTrue(name + " does not start with " + number, name.startsWith(Integer.toString(number)));
     }
 }

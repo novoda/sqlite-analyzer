@@ -1,7 +1,5 @@
 package com.novoda.sqlite.model;
 
-import com.novoda.sqlite.StringUtil;
-
 import java.util.Locale;
 
 public final class Column {
@@ -19,18 +17,6 @@ public final class Column {
 
     public String getName() {
         return name;
-    }
-
-    public String getCamelizedName() {
-        return StringUtil.camelify(name);
-    }
-
-    public String getCamelizedSmallName() {
-        String camel = StringUtil.camelify(name);
-        if (camel.length() <= 1) {
-            return "_" + camel;
-        }
-        return "_" + camel.substring(0, 1).toLowerCase(Locale.US) + camel.substring(1);
     }
 
     public String getType() {
