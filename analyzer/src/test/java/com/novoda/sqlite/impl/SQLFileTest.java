@@ -52,7 +52,8 @@ public class SQLFileTest {
     @Test
     public void givenSQLFileWithBlockComments_whenParseAndGetStatements_thenIgnoreComments() throws IOException {
         SQLFile file = givenSQLFileParsedFromString(
-                STATEMENT_CREATE_TABLE + NEW_LINE + BLOCK_COMMENT + NEW_LINE + STATEMENT_ALTER_TABLE);
+                STATEMENT_CREATE_TABLE + NEW_LINE + BLOCK_COMMENT + NEW_LINE + STATEMENT_ALTER_TABLE
+        );
 
         String[] actual = getStatementsFromFile(file);
 
