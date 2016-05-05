@@ -85,9 +85,9 @@ public class SQLFileTest {
     }
 
     private SQLFile givenSQLFileParsedFromString(String sql) throws IOException {
-        SQLFile file = new SQLFile();
-        file.parse(new StringReader(sql));
-        return file;
+        SQLFile sqlFile = new SQLFile();
+        sqlFile.parse(new StringReader(sql));
+        return sqlFile;
     }
 
     private String[] getStatementsFromFile(SQLFile file) {
