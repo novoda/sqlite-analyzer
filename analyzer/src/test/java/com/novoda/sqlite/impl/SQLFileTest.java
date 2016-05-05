@@ -14,9 +14,11 @@ public class SQLFileTest {
     private final static String STATEMENT_ALTER_TABLE = "ALTER TABLE banana ADD COLUMN colour TEXT;";
     private final static String NEW_LINE = "\n";
     private final static String SPACE = " ";
-    private final static String LINE_COMMENT = "-- this is a line comment";
     private final static String[] EXPECTED_STATEMENTS = new String[]{STATEMENT_CREATE_TABLE, STATEMENT_ALTER_TABLE};
+    private final static String LINE_COMMENT = "-- this is a line comment";
     private static final String BLOCK_COMMENT = "/* this is a \n block comment \n spanning over \n multiple lines */";
+    private final static String STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 = "CREATE TABLE";
+    private final static String STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2 = "banana(_id INTEGER);";
 
     @Test
     public void givenSQLFile_whenParseAndGetStatements_thenGetCorrectStatements() throws IOException {
@@ -54,6 +56,28 @@ public class SQLFileTest {
         String[] actual = getStatementsFromFile(file);
 
         assertArrayEquals(actual, EXPECTED_STATEMENTS);
+    }
+
+    @Test
+    public void givenSQLFileWithLineCommentsWithinStatement_whenParseAndGetStatements_thenIgnoreComments() throws IOException {
+        SQLFile file = givenSQLFileParsedFromString(
+                STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + NEW_LINE + LINE_COMMENT + NEW_LINE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2);
+
+        String[] actual = getStatementsFromFile(file);
+
+        assertEquals(actual.length, 1);
+        assertEquals(actual[0], STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + SPACE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2);
+    }
+
+    @Test
+    public void givenSQLFileWithBlockCommentsWithinStatement_whenParseAndGetStatements_thenIgnoreComments() throws IOException {
+        SQLFile file = givenSQLFileParsedFromString(
+                STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + NEW_LINE + BLOCK_COMMENT + NEW_LINE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2);
+
+        String[] actual = getStatementsFromFile(file);
+
+        assertEquals(actual.length, 1);
+        assertEquals(actual[0], STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + SPACE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2);
     }
 
     private SQLFile givenSQLFileParsedFromString(String sql) throws IOException {
