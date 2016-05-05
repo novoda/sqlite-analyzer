@@ -41,7 +41,8 @@ public class SQLFileTest {
     @Test
     public void givenSQLFileWithLineComments_whenParseAndGetStatements_thenIgnoreComments() throws IOException {
         SQLFile file = givenSQLFileParsedFromString(
-                STATEMENT_CREATE_TABLE + SPACE + LINE_COMMENT + NEW_LINE + STATEMENT_ALTER_TABLE + SPACE + LINE_COMMENT);
+                STATEMENT_CREATE_TABLE + SPACE + LINE_COMMENT + NEW_LINE + STATEMENT_ALTER_TABLE + SPACE + LINE_COMMENT
+        );
 
         String[] actual = getStatementsFromFile(file);
 
@@ -61,7 +62,8 @@ public class SQLFileTest {
     @Test
     public void givenSQLFileWithLineCommentsWithinStatement_whenParseAndGetStatements_thenIgnoreComments() throws IOException {
         SQLFile file = givenSQLFileParsedFromString(
-                STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + NEW_LINE + LINE_COMMENT + NEW_LINE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2);
+                STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + NEW_LINE + LINE_COMMENT + NEW_LINE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2
+        );
 
         String[] actual = getStatementsFromFile(file);
 
@@ -72,7 +74,8 @@ public class SQLFileTest {
     @Test
     public void givenSQLFileWithBlockCommentsWithinStatement_whenParseAndGetStatements_thenIgnoreComments() throws IOException {
         SQLFile file = givenSQLFileParsedFromString(
-                STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + NEW_LINE + BLOCK_COMMENT + NEW_LINE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2);
+                STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + NEW_LINE + BLOCK_COMMENT + NEW_LINE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2
+        );
 
         String[] actual = getStatementsFromFile(file);
 
