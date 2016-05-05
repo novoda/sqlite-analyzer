@@ -22,58 +22,58 @@ public class SQLFileTest {
 
     @Test
     public void givenSQLFile_whenParse_thenGetCorrectStatements() throws IOException {
-        SQLFile file = givenSQLFileWhenParse(String.format("%s\n%s", STATEMENT_CREATE_TABLE, STATEMENT_ALTER_TABLE));
+        SQLFile sqlFile = givenSQLFileWhenParse(String.format("%s\n%s", STATEMENT_CREATE_TABLE, STATEMENT_ALTER_TABLE));
 
-        String[] actual = getStatementsFromFile(file);
+        String[] actual = getStatementsFromFile(sqlFile);
         assertArrayEquals(actual, EXPECTED_STATEMENTS);
     }
 
     @Test
     public void givenSQLFileWithSpaces_whenParse_thenGetCorrectTrimmedStatements() throws IOException {
-        SQLFile file = givenSQLFileWhenParse(SPACE + STATEMENT_CREATE_TABLE + SPACE + NEW_LINE + SPACE + STATEMENT_ALTER_TABLE + SPACE);
+        SQLFile sqlFile = givenSQLFileWhenParse(SPACE + STATEMENT_CREATE_TABLE + SPACE + NEW_LINE + SPACE + STATEMENT_ALTER_TABLE + SPACE);
 
-        String[] actual = getStatementsFromFile(file);
+        String[] actual = getStatementsFromFile(sqlFile);
         assertArrayEquals(actual, EXPECTED_STATEMENTS);
     }
 
     @Test
     public void givenSQLFileWithLineComments_whenParse_thenIgnoreComments() throws IOException {
-        SQLFile file = givenSQLFileWhenParse(
+        SQLFile sqlFile = givenSQLFileWhenParse(
                 STATEMENT_CREATE_TABLE + SPACE + LINE_COMMENT + NEW_LINE + STATEMENT_ALTER_TABLE + SPACE + LINE_COMMENT
         );
 
-        String[] actual = getStatementsFromFile(file);
+        String[] actual = getStatementsFromFile(sqlFile);
         assertArrayEquals(actual, EXPECTED_STATEMENTS);
     }
 
     @Test
     public void givenSQLFileWithBlockComments_whenParse_thenIgnoreComments() throws IOException {
-        SQLFile file = givenSQLFileWhenParse(
+        SQLFile sqlFile = givenSQLFileWhenParse(
                 STATEMENT_CREATE_TABLE + NEW_LINE + BLOCK_COMMENT + NEW_LINE + STATEMENT_ALTER_TABLE
         );
 
-        String[] actual = getStatementsFromFile(file);
+        String[] actual = getStatementsFromFile(sqlFile);
         assertArrayEquals(actual, EXPECTED_STATEMENTS);
     }
 
     @Test
     public void givenSQLFileWithLineCommentsWithinStatement_whenParse_thenIgnoreComments() throws IOException {
-        SQLFile file = givenSQLFileWhenParse(
+        SQLFile sqlFile = givenSQLFileWhenParse(
                 STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + NEW_LINE + LINE_COMMENT + NEW_LINE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2
         );
 
-        String[] actual = getStatementsFromFile(file);
+        String[] actual = getStatementsFromFile(sqlFile);
         assertEquals(actual.length, 1);
         assertEquals(actual[0], STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + SPACE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2);
     }
 
     @Test
     public void givenSQLFileWithBlockCommentsWithinStatement_whenParse_thenIgnoreComments() throws IOException {
-        SQLFile file = givenSQLFileWhenParse(
+        SQLFile sqlFile = givenSQLFileWhenParse(
                 STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + NEW_LINE + BLOCK_COMMENT + NEW_LINE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2
         );
 
-        String[] actual = getStatementsFromFile(file);
+        String[] actual = getStatementsFromFile(sqlFile);
         assertEquals(actual.length, 1);
         assertEquals(actual[0], STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + SPACE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2);
     }
@@ -84,8 +84,8 @@ public class SQLFileTest {
         return sqlFile;
     }
 
-    private String[] getStatementsFromFile(SQLFile file) {
-        List<String> statements = file.getStatements();
+    private String[] getStatementsFromFile(SQLFile sqlFile) {
+        List<String> statements = sqlFile.getStatements();
         return statements.toArray(new String[statements.size()]);
     }
 }
