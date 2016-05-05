@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class SQLFileTest {
     private final static String STATEMENT_CREATE_TABLE = "CREATE TABLE banana(_id INTEGER);";
@@ -22,7 +24,7 @@ public class SQLFileTest {
 
         String[] actual = getStatementsFromFile(file);
 
-        Assert.assertArrayEquals(actual, EXPECTED_STATEMENTS);
+        assertArrayEquals(actual, EXPECTED_STATEMENTS);
     }
 
     @Test
@@ -31,7 +33,7 @@ public class SQLFileTest {
 
         String[] actual = getStatementsFromFile(file);
 
-        Assert.assertArrayEquals(actual, EXPECTED_STATEMENTS);
+        assertArrayEquals(actual, EXPECTED_STATEMENTS);
     }
 
     @Test
@@ -41,7 +43,7 @@ public class SQLFileTest {
 
         String[] actual = getStatementsFromFile(file);
 
-        Assert.assertArrayEquals(actual, EXPECTED_STATEMENTS);
+        assertArrayEquals(actual, EXPECTED_STATEMENTS);
     }
 
     @Test
@@ -51,7 +53,7 @@ public class SQLFileTest {
 
         String[] actual = getStatementsFromFile(file);
 
-        Assert.assertArrayEquals(actual, EXPECTED_STATEMENTS);
+        assertArrayEquals(actual, EXPECTED_STATEMENTS);
     }
 
     private SQLFile givenSQLFileParsedFromString(String sql) throws IOException {
