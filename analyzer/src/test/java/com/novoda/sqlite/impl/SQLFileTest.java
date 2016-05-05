@@ -22,7 +22,7 @@ public class SQLFileTest {
 
     @Test
     public void givenSQLFile_whenParse_thenGetCorrectStatements() throws IOException {
-        SQLFile sqlFile = givenSQLFileWhenParse(String.format("%s\n%s", STATEMENT_CREATE_TABLE, STATEMENT_ALTER_TABLE));
+        SQLFile sqlFile = givenSQLFileWhenParse(STATEMENT_CREATE_TABLE + NEW_LINE + STATEMENT_ALTER_TABLE);
 
         String[] actual = getStatementsFromFile(sqlFile);
         assertArrayEquals(actual, EXPECTED_STATEMENTS);
