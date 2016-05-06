@@ -86,6 +86,15 @@ public class SQLFileTest {
         assertEquals(sqlContent, actual[0]);
     }
 
+    @Test
+    public void givenSQLFileWithMultipleStatementsInOneLine_whenParse_thenGetTwoStatements() throws IOException {
+        String sqlContent = "CREATE TABLE `one`(id INTEGER); CREATE TABLE `two`(id INTEGER);";
+        SQLFile sqlFile = givenSQLFileWhenParse(sqlContent);
+
+        String[] actual = getStatementsFromFile(sqlFile);
+        assertEquals(actual.length, 2);
+    }
+
     private SQLFile givenSQLFileWhenParse(String sql) throws IOException {
         SQLFile sqlFile = new SQLFile();
         sqlFile.parse(new StringReader(sql));
