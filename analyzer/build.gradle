@@ -42,7 +42,7 @@ sourceSets {
 }
 
 generateGrammarSource {
-    outputDirectory = new File('src/main/build/com/novoda/sqlite/grammar')
+    outputDirectory = new File('analyzer/src/main/build/com/novoda/sqlite/grammar')
 }
 
 publish {
