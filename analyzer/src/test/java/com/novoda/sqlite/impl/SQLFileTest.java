@@ -77,7 +77,7 @@ public class SQLFileTest {
     }
 
     @Test
-    public void givenSqlFileWithTable_andTableWithDoubleDashes_whenParse_thenDoNotTreatDashesAsComment() throws IOException {
+    public void givenSQLFileWithTable_andTableWithDoubleDashes_whenParse_thenDoNotTreatDashesAsComment() throws IOException {
         String sqlContent = "CREATE TABLE `all--pizzas`(flavor TEXT);";
         SQLFile sqlFile = givenSQLFileWhenParse(sqlContent);
 
