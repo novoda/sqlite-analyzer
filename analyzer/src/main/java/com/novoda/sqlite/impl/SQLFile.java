@@ -29,10 +29,18 @@ public class SQLFile {
 
         SQLiteLexer lexer = new SQLiteLexer(new ANTLRInputStream(sqlContent));
         SQLiteParser parser = new SQLiteParser(new CommonTokenStream(lexer));
-        List<SQLiteParser.Sql_stmtContext> statementListContext = parser.parse().sql_stmt_list(0).sql_stmt();
 
-        this.statements = new ArrayList<String>(statementListContext.size());
-        for (SQLiteParser.Sql_stmtContext statement : statementListContext) {
+        // parse() contains a list of sql_stmt_list
+        List<SQLiteParser.Sql_stmt_listContext> statementListContext = parser.parse().sql_stmt_list();
+
+        // every sql_stmt_list contains one or more sql_stmt, we need to flatten it
+        List<SQLiteParser.Sql_stmtContext> statementList = new ArrayList<SQLiteParser.Sql_stmtContext>();
+        for (SQLiteParser.Sql_stmt_listContext statements : statementListContext) {
+            statementList.addAll(statements.sql_stmt());
+        }
+
+        this.statements = new ArrayList<String>(statementList.size());
+        for (SQLiteParser.Sql_stmtContext statement : statementList) {
             int startIndex = statement.getStart().getStartIndex();
             int stopIndex = statement.getStop().getStopIndex();
             String textStatement = sqlContent.substring(startIndex, stopIndex + 1) + SEMICOLON;
