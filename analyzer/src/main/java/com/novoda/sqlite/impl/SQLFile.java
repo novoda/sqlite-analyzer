@@ -1,96 +1,77 @@
 package com.novoda.sqlite.impl;
 
-import java.io.*;
+import com.novoda.sqlite.grammar.SQLiteLexer;
+import com.novoda.sqlite.grammar.SQLiteParser;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
 
 /**
  * Parsing .sql files and get single statements suitable for insertion.
  */
 public class SQLFile {
 
-	private static final String STATEMENT_END_CHARACTER = ";";
-	private static final String LINE_COMMENT_START_CHARACTERS = "--";
-	private static final String BLOCK_COMMENT_START_CHARACTERS = "/*";
-	private static final String BLOCK_COMMENT_END_CHARACTERS = "*/";
-	private static final String LINE_CONCATENATION_CHARACTER = " ";
+    private static final String NEW_LINE = "\n";
+    private static final String SEMICOLON = ";";
 
-	private List<String> statements;
+    private List<String> statements;
 
-	private boolean inComment = false;
+    public void parse(Reader in) throws IOException {
+        String sqlContent = getStringFromReader(in);
 
-	public void parse(Reader in) throws IOException {
-		BufferedReader reader = new BufferedReader(in);
-		statements = new ArrayList<String>();
-		String line;
-		StringBuilder statement = new StringBuilder();
-		while ((line = reader.readLine()) != null) {
-			line = stripOffTrailingComment(line).trim();
+        SQLiteLexer lexer = new SQLiteLexer(new ANTLRInputStream(sqlContent));
+        SQLiteParser parser = new SQLiteParser(new CommonTokenStream(lexer));
+        List<SQLiteParser.Sql_stmtContext> statementListContext = parser.parse().sql_stmt_list(0).sql_stmt();
 
-			if (line.length() == 0) {
-				continue;
-			}
+        this.statements = new ArrayList<String>(statementListContext.size());
+        for (SQLiteParser.Sql_stmtContext statement : statementListContext) {
+            int startIndex = statement.getStart().getStartIndex();
+            int stopIndex = statement.getStop().getStopIndex();
+            String textStatement = sqlContent.substring(startIndex, stopIndex + 1) + SEMICOLON;
+            this.statements.add(textStatement);
+        }
+    }
 
-			if (line.startsWith(BLOCK_COMMENT_START_CHARACTERS)) {
-				inComment = true;
-				continue;
-			}
+    private String getStringFromReader(Reader reader) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
 
-			if (inComment && line.endsWith(BLOCK_COMMENT_END_CHARACTERS)) {
-				inComment = false;
-				continue;
-			}
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        while ((line = bufferedReader.readLine()) != null) {
+            stringBuilder.append(line).append(NEW_LINE);
+        }
+        bufferedReader.close();
 
-			if (inComment) {
-				continue;
-			}
+        return stringBuilder.toString();
+    }
 
-			statement.append(line);
-			if (!line.endsWith(STATEMENT_END_CHARACTER)) {
-				statement.append(LINE_CONCATENATION_CHARACTER);
-				continue;
-			}
+    public List<String> getStatements() {
+        return statements;
+    }
 
-			statements.add(statement.toString());
-			statement.setLength(0);
-		}
-		reader.close();
-		if (statement.length() > 0) {
-			throw new IOException(
-					"incomplete sql statement (missing semicolon?): "
-							+ statement.toString());
-		}
-	}
+    public static List<String> statementsFrom(File sqlFile) throws IOException {
+        FileReader reader = null;
+        try {
+            reader = new FileReader(sqlFile);
+            return statementsFrom(reader);
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
+        }
+    }
 
-	private String stripOffTrailingComment(String line) {
-		int commentStartIndex = line.indexOf(LINE_COMMENT_START_CHARACTERS);
-		if (commentStartIndex != -1) {
-			return line.substring(0, commentStartIndex);
-		}
-		return line;
-	}
-
-	public List<String> getStatements() {
-		return statements;
-	}
-
-	public static List<String> statementsFrom(Reader reader) throws IOException {
-		SQLFile file = new SQLFile();
-		file.parse(reader);
-		return file.getStatements();
-	}
-
-	public static List<String> statementsFrom(File sqlfile) throws IOException {
-		FileReader reader = null;
-		try {
-			reader = new FileReader(sqlfile);
-			SQLFile file = new SQLFile();
-			file.parse(reader);
-			return file.getStatements();
-		} finally {
-			if (reader != null) {
-				reader.close();
-			}
-		}
-	}
+    public static List<String> statementsFrom(Reader reader) throws IOException {
+        SQLFile file = new SQLFile();
+        file.parse(reader);
+        return file.getStatements();
+    }
 }
