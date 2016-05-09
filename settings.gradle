@@ -1,3 +1,2 @@
 include 'demo-assethelper'
 include 'demo-sqliteprovider'
-include 'analyzer'
