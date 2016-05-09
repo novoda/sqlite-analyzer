@@ -25,7 +25,7 @@ public class SQLFileTest {
         SQLFile sqlFile = givenSQLFileWhenParse(STATEMENT_CREATE_TABLE + NEW_LINE + STATEMENT_ALTER_TABLE);
 
         String[] actual = getStatementsFromFile(sqlFile);
-        assertArrayEquals(actual, EXPECTED_STATEMENTS);
+        assertArrayEquals(EXPECTED_STATEMENTS, actual);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class SQLFileTest {
         SQLFile sqlFile = givenSQLFileWhenParse(SPACE + STATEMENT_CREATE_TABLE + SPACE + NEW_LINE + SPACE + STATEMENT_ALTER_TABLE + SPACE);
 
         String[] actual = getStatementsFromFile(sqlFile);
-        assertArrayEquals(actual, EXPECTED_STATEMENTS);
+        assertArrayEquals(EXPECTED_STATEMENTS, actual);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class SQLFileTest {
         );
 
         String[] actual = getStatementsFromFile(sqlFile);
-        assertArrayEquals(actual, EXPECTED_STATEMENTS);
+        assertArrayEquals(EXPECTED_STATEMENTS, actual);
     }
 
     @Test
@@ -53,29 +53,46 @@ public class SQLFileTest {
         );
 
         String[] actual = getStatementsFromFile(sqlFile);
-        assertArrayEquals(actual, EXPECTED_STATEMENTS);
+        assertArrayEquals(EXPECTED_STATEMENTS, actual);
     }
 
     @Test
-    public void givenSQLFileWithLineCommentsWithinStatement_whenParse_thenIgnoreComments() throws IOException {
-        SQLFile sqlFile = givenSQLFileWhenParse(
-                STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + NEW_LINE + LINE_COMMENT + NEW_LINE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2
-        );
+    public void givenSQLFileWithLineCommentsWithinStatement_whenParse_thenLeaveCommentsInStatement() throws IOException {
+        String sqlContent = STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + NEW_LINE + LINE_COMMENT + NEW_LINE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2;
+        SQLFile sqlFile = givenSQLFileWhenParse(sqlContent);
 
         String[] actual = getStatementsFromFile(sqlFile);
         assertEquals(actual.length, 1);
-        assertEquals(actual[0], STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + SPACE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2);
+        assertEquals(sqlContent, actual[0]);
     }
 
     @Test
-    public void givenSQLFileWithBlockCommentsWithinStatement_whenParse_thenIgnoreComments() throws IOException {
-        SQLFile sqlFile = givenSQLFileWhenParse(
-                STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + NEW_LINE + BLOCK_COMMENT + NEW_LINE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2
-        );
+    public void givenSQLFileWithBlockCommentsWithinStatement_whenParse_thenLeaveCommentsInStatement() throws IOException {
+        String sqlContent = STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + NEW_LINE + BLOCK_COMMENT + NEW_LINE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2;
+        SQLFile sqlFile = givenSQLFileWhenParse(sqlContent);
 
         String[] actual = getStatementsFromFile(sqlFile);
         assertEquals(actual.length, 1);
-        assertEquals(actual[0], STATEMENT_FOR_COMMENTS_WITHIN_TESTS_1 + SPACE + STATEMENT_FOR_COMMENTS_WITHIN_TESTS_2);
+        assertEquals(sqlContent, actual[0]);
+    }
+
+    @Test
+    public void givenSQLFileWithTable_andTableWithDoubleDashes_whenParse_thenDoNotTreatDashesAsComment() throws IOException {
+        String sqlContent = "CREATE TABLE `all--pizzas`(flavor TEXT);";
+        SQLFile sqlFile = givenSQLFileWhenParse(sqlContent);
+
+        String[] actual = getStatementsFromFile(sqlFile);
+        assertEquals(actual.length, 1);
+        assertEquals(sqlContent, actual[0]);
+    }
+
+    @Test
+    public void givenSQLFileWithMultipleStatementsInOneLine_whenParse_thenGetTwoStatements() throws IOException {
+        String sqlContent = "CREATE TABLE `one`(id INTEGER); CREATE TABLE `two`(id INTEGER);";
+        SQLFile sqlFile = givenSQLFileWhenParse(sqlContent);
+
+        String[] actual = getStatementsFromFile(sqlFile);
+        assertEquals(actual.length, 2);
     }
 
     private SQLFile givenSQLFileWhenParse(String sql) throws IOException {

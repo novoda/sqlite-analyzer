@@ -37,8 +37,7 @@ public class MigrationsConnector implements Connector {
         Statement statement = connection.createStatement();
         for (File migration : migrations) {
             try {
-                List<String> statements = null;
-                statements = SQLFile.statementsFrom(migration);
+                List<String> statements = SQLFile.statementsFrom(migration);
                 for (String sqlCommand : statements) {
                     statement.executeUpdate(sqlCommand);
                 }
