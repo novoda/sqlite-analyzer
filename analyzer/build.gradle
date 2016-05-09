@@ -37,14 +37,6 @@ version = '0.3.2'
 sourceCompatibility = JavaVersion.VERSION_1_6
 targetCompatibility = JavaVersion.VERSION_1_6
 
-sourceSets {
-    main.java.srcDir 'src/main/build'
-}
-
-generateGrammarSource {
-    outputDirectory = new File('src/main/build/com/novoda/sqlite/grammar')
-}
-
 publish {
     userOrg = 'novoda'
     groupId = 'com.novoda'
