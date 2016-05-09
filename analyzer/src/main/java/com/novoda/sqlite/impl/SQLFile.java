@@ -38,9 +38,7 @@ public class SQLFile {
 
         this.statements = new ArrayList<String>(statementList.size());
         for (SQLiteParser.Sql_stmtContext statement : statementList) {
-            int startIndex = statement.getStart().getStartIndex();
-            int stopIndex = statement.getStop().getStopIndex();
-            String textStatement = sqlContent.substring(startIndex, stopIndex + 1) + ";";
+            String textStatement = getStringFromStatement(sqlContent, statement);
             this.statements.add(textStatement);
         }
     }
@@ -56,6 +54,12 @@ public class SQLFile {
         bufferedReader.close();
 
         return stringBuilder.toString();
+    }
+
+    private String getStringFromStatement(String sqlContent, SQLiteParser.Sql_stmtContext statement) {
+        int startIndex = statement.getStart().getStartIndex();
+        int stopIndex = statement.getStop().getStopIndex();
+        return sqlContent.substring(startIndex, stopIndex + 1) + ";";
     }
 
     public List<String> getStatements() {
