@@ -19,9 +19,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
  */
 public class SQLFile {
 
-    private static final String NEW_LINE = "\n";
-    private static final String SEMICOLON = ";";
-
     private List<String> statements;
 
     public void parse(Reader in) throws IOException {
@@ -43,7 +40,7 @@ public class SQLFile {
         for (SQLiteParser.Sql_stmtContext statement : statementList) {
             int startIndex = statement.getStart().getStartIndex();
             int stopIndex = statement.getStop().getStopIndex();
-            String textStatement = sqlContent.substring(startIndex, stopIndex + 1) + SEMICOLON;
+            String textStatement = sqlContent.substring(startIndex, stopIndex + 1) + ";";
             this.statements.add(textStatement);
         }
     }
@@ -54,7 +51,7 @@ public class SQLFile {
 
         BufferedReader bufferedReader = new BufferedReader(reader);
         while ((line = bufferedReader.readLine()) != null) {
-            stringBuilder.append(line).append(NEW_LINE);
+            stringBuilder.append(line).append("\n");
         }
         bufferedReader.close();
 
