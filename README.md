@@ -1,3 +1,5 @@
+# 🛑 THIS REPOSITORY IS OFFICIALLY NO LONGER UNDER MAINTENANCE since 10/02/2022 🛑
+
 # sqlite-analyzer [![CI status](https://ci.novoda.com/buildStatus/icon?job=sqlite-analyzer)](https://ci.novoda.com/job/sqlite-analyzer/lastBuild/console) [![Download from Bintray](https://api.bintray.com/packages/novoda/maven/sqlite-analyzer/images/download.svg)](https://bintray.com/novoda/maven/sqlite-analyzer/_latestVersion) [![Apache 2.0 Licence](https://img.shields.io/github/license/novoda/sqlite-analyzer.svg)](https://github.com/novoda/sqlite-analyzer/blob/master/LICENSE.txt)
 
 Code generation for Java/Android database access.
